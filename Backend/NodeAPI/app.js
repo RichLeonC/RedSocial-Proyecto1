@@ -7,6 +7,14 @@ var conexion = mysql.createConnection({
     password:'admin'
 });
 
-conexion.connect(function{
-    
+conexion.connect(error=>{
+    if(error){
+        throw error;
+
+    }else{
+        console.log('Conexion Exitosa');
+    }
+
 })
+
+conexion.end();
