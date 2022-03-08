@@ -1,7 +1,5 @@
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
+function Routes() {
   return (
     <div>
       
@@ -9,4 +7,4 @@ function App() {
   );
 }
 
-export default App;
+export default Routes;
