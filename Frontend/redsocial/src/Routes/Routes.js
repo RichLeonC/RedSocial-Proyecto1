@@ -1,10 +1,21 @@
+import React from 'react';
+import '../Routes/App.css';
+import Login from '../Login/Login.js';
+import {BrowserRouter,Switch,Route} from 'react-router-dom';
 
-function Routes() {
+//Componentes
+
+//Componente principal que contiene las rutas a los otros componentes
+
+export default function Routes() {
+    
+
   return (
-    <div>
-      
-    </div>
-  );
-}
 
-export default Routes;
+      <BrowserRouter>
+          <Switch>
+              <Route exact path="/" component={Login}/>
+          </Switch>
+          </BrowserRouter>
+  )
+}
