@@ -25,20 +25,22 @@ END //
 DELIMITER ;
 -- Error de sintaxis--
 DELIMITER // 
-create procedure deleteTable (IN CorreoElectronico varchar(150))
+create procedure deleteUsuario (IN CorreoElectronico varchar(150))
 BEGIN 
 		delete from Usuario where correoElectronico= @CorreoElectronico;
 END //
 DELIMITER ;
 
-drop procedure insertTable;
 
-call insertTable('meguilu11@hotmail.com', 'Melissa', 'Alguera', 'Castillo', '2000-10-25', 'jacksonWang',
+
+
+
+call insertUsuario('meguilu11@hotmail.com', 'Melissa', 'Alguera', 'Castillo', '2000-10-25', 'jacksonWang',
  'Kpop','Brilla Brilla estrellita', 'Bailar');
  
  select * from Usuario;
-
-ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '534444';
+delete from Usuario where correoElectronico like '%user%';
+#ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '534444';
 
 describe Usuario;
 
