@@ -7,7 +7,7 @@ export default function Topbar() {
     return (
         <div className='topbarContainer'>
             <div className='topbarLeft'>
-            <span className='logo'>KompuSocial</span>
+            <span className='logo'>KS</span>
         </div>
             <div className='topbarCenter'>
             
