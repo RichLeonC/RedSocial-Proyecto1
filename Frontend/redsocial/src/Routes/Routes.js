@@ -16,7 +16,7 @@ export default function Routes() {
 
       <BrowserRouter>
           <Switch>
-              <Route exact path="/" component={Register}/>
+              <Route exact path="/" component={Home}/>
              
           </Switch>
           </BrowserRouter>
