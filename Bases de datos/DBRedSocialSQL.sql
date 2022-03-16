@@ -15,6 +15,7 @@ create table Usuario
 ); 
 
 
+#PROCEDIMIENTO ALMACENADO ENCARGADO DE INSERTAR EN LA TABLA USUARIO
 DELIMITER //
 create procedure insertUsuario(IN correoElectronico varchar(150), IN nombre varchar(50), IN apellido1 varchar(50),
 IN apellido2 varchar(50), IN fechaNacimiento date, IN clave varchar(200), IN intereses varchar (200), descripcionGeneral varchar (200),
@@ -23,39 +24,34 @@ BEGIN
 	insert into Usuario values(correoElectronico,nombre,apellido1,apellido2,fechaNacimiento,clave,intereses,descripcionGeneral,hobbiese);
 END //
 DELIMITER ;
--- Error de sintaxis--
+
+#PROCEDIMIENTO ALMACENADO ENCARGADO DE ELIMINAR EN LA TABLA USUARIO
 DELIMITER // 
-create procedure deleteUsuario (IN CorreoElectronico varchar(150))
-	
+create procedure deleteUsuario (IN correo varchar(150))
+
 BEGIN 
-		set @correo = CorreoElectronico;
-		delete from Usuario where correoElectronico=@correo;
+		delete from Usuario where correoElectronico=correo;
 END //
 DELIMITER ;
 
+#PROCEDIMIENTO ALMACENADO ENCARGADO DE MODIFICAR EN LA TABLA USUARIO
 DELIMITER //
-create procedure updateUsuario( IN correoElectronico varchar(150),IN fechaNacimiento date, IN clave varchar(200), IN intereses varchar (200), descripcionGeneral varchar (200),
+create procedure updateUsuario( IN correo varchar(150), IN nombre varchar(50), IN apellido1 varchar(50),
+IN apellido2 varchar(50),IN fechaNacimiento date, IN clave varchar(200), IN intereses varchar (200), descripcionGeneral varchar (200),
 IN hobbies varchar (200))
 BEGIN
-	update Usuario set fechaNacimiento = @fechaNacimiento, clave = @clave, intereses = @intereses,
-    descripcionGeneral = @descripcionGeneral, hobbies = @hobbies where correoElectronico = @correoElectronico;
+	update Usuario set nombre=nombre,apellido1=apellido1, apellido2 = apellido2,fechaNacimiento = fechaNacimiento, 
+    clave = clave, intereses = intereses, descripcionGeneral = descripcionGeneral, 
+    hobbies = hobbies where correoElectronico = correo;
 END
 //
-
-	update Usuario set fechaNacimiento = '2001-07-29', clave = 'admin', intereses = 'h',
-    descripcionGeneral = 'dd', hobbies = 'hh' where correoElectronico = 'r29leonc@gmail.com';
 
 call insertUsuario('meguilu11@hotmail.com', 'Melissa', 'Alguera', 'Castillo', '2000-10-25', 'jacksonWang',
  'Kpop','Brilla Brilla estrellita', 'Bailar');
  
-call updateUsuario('meguilu11@hotmail.com','2001-07-29','admin','TRAPPos','Estudiante','Jugar maincra')
- 
- call deleteUsuario('r29leonc@gmail.com')
  select * from Usuario;
-delete from Usuario where correoElectronico like '%user%';
+# from Usuario where correoElectronico like '%user%';
 #ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '534444';
-
-describe Usuario;
 
 insert into Usuario 
 values('r29leonc@gmail.com','Richard','Leon','Chinchilla','2001-07-29',
