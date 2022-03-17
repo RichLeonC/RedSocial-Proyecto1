@@ -1,42 +1,31 @@
-import React from "react";
-import loginImg from "../../login.svg";
+import React from "react"
+import "./register.css"
 
-export class Register extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
-    render() {
-        return <div className="base-container">
-            <div className="header">Register</div>
-            <div className="content">
-                <div className="image">
-                    <img src={loginImg} />
-                </div>
-            <div className="form">
-                <div className="form-group">
-                    <label htmlFor="username"Username></label>
-                    <input type="text" name="username" placeholder="username"/>
-                </div>
-
-                <div className="form-group">
-                    <label htmlFor="email"Email></label>
-                    <input type="email" name="email" placeholder="email"/>
-                </div>
-
-                <div className="form-group">
-                    <label htmlFor="password"Password></label>
-                    <input type="text" name="password" placeholder="password"/>
-                </div>
-
-            </div>
-
-            <div className="footer">
-                <button type="button" className="btn">
-                    Register
-                </button>
-            </div>
+export default function Register() {
+  return (
+    <div className="login">
+      <div classname="loginWrapper">
+        <div className="loginLeft">
+        
+          <h3 className="loginLogo">Lamasocial</h3>
+          <span>
+            Connect with friends and the world around you.
+          </span>
         </div>
+        <div className="loginRight">
+          <div className="loginBox">
+            <input placeholder="Username" className="loginOutput"></input>
+            <input placeholder="Email" className="loginOutput"></input>
+            <input placeholder="Password" className="loginOutput"></input>
+            <input placeholder="Confirm password" className="loginOutput"></input>
+            <button className="loginButton">Sign up</button>
+            <button className="loginRegisterButton">
+              Log into account
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
-    }
+
+  )
 }
