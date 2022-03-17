@@ -5,6 +5,7 @@ import Feed from '../../Components/feed/Feed';
 import Sidebar from '../../Components/sidebar/Sidebar'
 import Rightbar from '../../Components/rightbar/Rightbar';
 export default function Profile() {
+    
     return (
         <div>
             <Topbar />
