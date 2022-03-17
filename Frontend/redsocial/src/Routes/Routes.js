@@ -3,7 +3,7 @@ import '../Routes/App.css';
 import Login from '../Login/Login.js';
 import {BrowserRouter,Switch,Route} from 'react-router-dom';
 import Home from "../Pages/Home/Home.js";
-import { Register } from '../Pages/Register/Register';
+import Register from '../Pages/Register/Register';
 import Profile from '../Pages/Profile/Profile';
 //Componentes
 
@@ -17,7 +17,7 @@ export default function Routes() {
 
       <BrowserRouter>
           <Switch>
-              <Route exact path="/" component={Profile}/>
+              <Route exact path="/" component={Register}/>
              
           </Switch>
           </BrowserRouter>

@@ -1,10 +1,10 @@
 import React from 'react'
 import HomeIcon from '@mui/icons-material/Home';
-import Topbar from '../../Components/topbar/Topbar';
-import Feed from '../../Components/feed/Feed';
+import Topbar from '../../components/topbar/Topbar';
+import Feed from '../../components/feed/Feed';
 import './home.css'
-import Sidebar from '../../Components/sidebar/Sidebar'
-import Rightbar from '../../Components/rightbar/Rightbar';
+import Sidebar from '../../components/sidebar/Sidebar'
+import Rightbar from '../../components/rightbar/Rightbar';
 export default function Home() {
   return (
    <div>
