@@ -3,6 +3,8 @@ import logo from "./logo.svg";
 import "./App.scss";
 import { Login } from "./components/login/index";
 
+import Login from "./loginRS/login";
+
 class App extends React.Component {
 
   constructor(props) {
@@ -19,7 +21,7 @@ render() {
     <div className="App">
       <div className="login">
         <div className="container">
-          {isLogginActive && <Login /> container}
+          {isLogginActive && <Login /> Container}
         </div>
       </div>
     </div>
