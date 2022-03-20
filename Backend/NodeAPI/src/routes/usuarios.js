@@ -27,7 +27,7 @@ router.get('/:correo',(req,res)=>{
     });
 })
 //POST, recibe un json con los datos del usuario para insertarlo en la tabla en el mySQL
-router.post('/',(req,res)=>{
+router.post('/usuarios',(req,res)=>{
     const {correoElectronico,nombre,apellido1,apellido2,fechaNacimiento,clave,intereses,descripcionGeneral,hobbies} = req.body;
     const query = `
         call insertUsuario(?,?,?,?,?,?,?,?,?)
