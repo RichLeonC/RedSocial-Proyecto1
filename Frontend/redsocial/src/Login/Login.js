@@ -3,31 +3,58 @@ import Title from './Components/Title/Title';
 import './Login.css';
 import Label from './Components/label/label';
 import Input from './Components/Input/Input';
+import axios from 'axios';
+import Cookies from 'universal-cookie';
+
+//import saltHash from 'password-salt-and-hash';
 
 function Login (props){
-    const [email, setemail] = useState('');
-    const [clave, setclave] = useState('');
-
+  
+    const baseURl = "http://localhost:3000/usuarios";
+    const [form,setForm] = useState({
+        correo:'',
+        clave:''
+        });
+    const cookies = new Cookies();
    function handleChange (name, value){
-       if (name === 'correo'){
-           setemail(value)
-       }
-       else {
-            setclave(value)
-
-       }
+    setForm({
+        ...form,
+        [name]:value
+    });
+    console.log(form);
    }
+
+
    function handleSubmit(){
-    let accout = {email, clave}
-    if (accout){
-        console.log(accout)
-    }
+     axios.get(baseURl+`/${form.correo}`)
+    .then ( response => {
+        return response.data;
+    }).then (response=> {
+            if(response.length>0){
+                var respuesta=response[0];
+                console.log(respuesta);
+            if (respuesta.correo == ("meguilu11@hotmail.com")){
+               
+            }
+            }
+            else{
+                alert("El usuario o contraseña no son correctoss");
+            }
+        }
+    )
+    .catch(error=>{
+        alert("El usuario o contraseña no son correctoss");
+        console.log(error);
+    })
 
-
+    console.log(form)
+  
    }
 
-   console.log('correo', email)
-   console.log('clave', clave)
+  
+
+
+
 
     return(
         <div className='login-container'>
