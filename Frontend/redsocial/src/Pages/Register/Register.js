@@ -27,7 +27,7 @@ import "./register.css"
     submitHandler = e => {
       e.preventDefault()
       console.log(this.state)
-      axios.post('localhost:3000/usuarios', this.state)
+      axios.post('https://localhost:3000/usuarios', this.state)
         .then(response => {
           console.log(response)
         })
@@ -80,9 +80,9 @@ import "./register.css"
                     name="hobbies" value={hobbies} onChange={this.changeHandler}>
                   </input>
                   <button type="submit" className="loginButton">Sign up</button>
-                  <button type="submit" className="loginRegisterButton">
+                  {/* <button type="submit" className="loginRegisterButton">
                     Log into account
-                  </button>
+                  </button> */}
                 </div>
               </div>
             </div>
