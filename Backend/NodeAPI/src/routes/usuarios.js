@@ -16,8 +16,10 @@ router.get('/usuarios',(req,res)=>{ //req es request
 //GET Devuelve un solo usuario, filtra por el correo ->localhost:3000/usuarios/example@gmail.com
 router.get('/usuarios/:correo',(req,res)=>{ 
     const {correo} = req.params; //Quiero el correo que proviene como parametro en la url
+ 
     console.log(correo);
-    mysqlConexion.query('select * from Usuario where correoElectronico = ?',[correo],
+
+    mysqlConexion.query('select * from Usuario where correoElectronico = ?  ',[correo],
     (error,rows,fields)=>{
         if(!error){
             res.json(rows[0]);
