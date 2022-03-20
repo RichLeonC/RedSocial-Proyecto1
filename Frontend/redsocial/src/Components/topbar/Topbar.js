@@ -3,11 +3,15 @@ import SearchIcon from '@mui/icons-material/Search';
 import PersonIcon from '@mui/icons-material/Person';
 import { Chat, Notifications } from '@mui/icons-material';
 import './topbar.css'
-export default function Topbar() {
+import Home from '../../Pages/Home/Home';
+export default function Topbar(props) {
+    const goHome=()=>{
+        props.history.push("/home")
+    }
     return (
         <div className='topbarContainer'>
             <div className='topbarLeft'>
-            <span className='logo'>KS</span>
+            <span className='logo' onClick={()=>goHome()}>KS</span>
         </div>
             <div className='topbarCenter'>
             

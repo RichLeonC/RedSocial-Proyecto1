@@ -1,11 +1,14 @@
 import React from "react";
 
 
-function Title (){
-    return (
-        <div>
-            Prueba
 
+import './Title.css';
+
+function Title ({ text }){
+    return (
+        <div className='title-container'>
+            
+      <label className='title-label'>{text}</label> 
         </div>
 
 
