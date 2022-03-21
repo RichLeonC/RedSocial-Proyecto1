@@ -46,7 +46,7 @@ import "./register.css"
             <div classname="loginWrapper">
               <div className="loginLeft">
                 <h3 className="loginLogo">Kompusocial</h3>
-                <span>
+                <span className="subTitle">
                   ¡Conéctate con tus amigos digitalmente!
                 </span>
               </div>
