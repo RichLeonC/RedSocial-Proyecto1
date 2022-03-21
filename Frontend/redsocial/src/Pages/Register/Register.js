@@ -27,7 +27,7 @@ import "./register.css"
     submitHandler = e => {
       e.preventDefault()
       console.log(this.state)
-      axios.post('https://localhost:3000/usuarios', this.state)
+      axios.post('http://localhost:3000/usuarios', this.state)
         .then(response => {
           console.log(response)
         })
