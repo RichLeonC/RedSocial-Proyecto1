@@ -3,8 +3,8 @@ var mysql = require('mysql');
 var mysqlConexion = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password:'534444',
-    database: 'dbredsocialsql'
+    password:'cmp250230',
+    database: 'dbRedSocialSQL'
 });
 
 mysqlConexion.connect(error=>{
