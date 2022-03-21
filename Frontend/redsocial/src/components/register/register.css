@@ -1,7 +1,7 @@
 .login{
   width: 100vw;
-  height: 50vw;
-  background-color: #012a4a;
+  height: 100vw;
+  background-color: #f0f2f5;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -22,7 +22,7 @@
 .loginLogo{
   font-size: 50px;
   font-weight: 800;
-  color: white;
+  color: #1775ee;
   margin-bottom: 10px;
 }
 
@@ -31,7 +31,7 @@
 }
 
 .loginBox{
-  height: 500px;
+  height: 400px;
   padding: 20px;
   background-color: white;
   border-radius: 10px;
@@ -69,9 +69,9 @@
 }
 
 .loginRegisterButton{
-  width: 160px;
+  width: 50px;
   align-self: center;
-  height: 30px;
+  height: 50px;
   border-radius: 10px;
   border: none;
   background-color: #42b72a;

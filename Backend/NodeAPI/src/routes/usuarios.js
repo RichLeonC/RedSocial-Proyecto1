@@ -2,8 +2,9 @@ const express = require('express');
 const router = express.Router();
 
 const mysqlConexion = require('../Databases/dbMySQL')
+
 //GET -> localhost:3000/usuarios
-router.get('/usuarios',(req,res)=>{ //req es request
+router.get('/',(req,res)=>{ //req es request
     mysqlConexion.query('select * from Usuario',(error,rows,fields)=>{
         if(!error){
             res.json(rows);
@@ -14,7 +15,7 @@ router.get('/usuarios',(req,res)=>{ //req es request
 });
 
 //GET Devuelve un solo usuario, filtra por el correo ->localhost:3000/usuarios/example@gmail.com
-router.get('/usuarios/:correo',(req,res)=>{ 
+router.get('/:correo',(req,res)=>{ 
     const {correo} = req.params; //Quiero el correo que proviene como parametro en la url
  
     console.log(correo);
@@ -29,7 +30,7 @@ router.get('/usuarios/:correo',(req,res)=>{
     });
 })
 //POST, recibe un json con los datos del usuario para insertarlo en la tabla en el mySQL -> localhost:3000/usuarios
-router.post('/usuarios',(req,res)=>{
+router.post('/',(req,res)=>{
     const {correoElectronico,nombre,apellido1,apellido2,fechaNacimiento,clave,intereses,descripcionGeneral,hobbies} = req.body;
     const query = `
         call insertUsuario(?,?,?,?,?,?,?,?,?)
@@ -46,7 +47,7 @@ router.post('/usuarios',(req,res)=>{
 });
 
 //PUT, recibe JSON, solo algunos datos se pueden modificar -> localhost:3000/usuarios/example@gmail.com
-router.put('/usuarios/:correo',(req,res)=>{
+router.put('/:correo',(req,res)=>{
     const {nombre,apellido1,apellido2,fechaNacimiento,clave,intereses,descripcionGeneral,hobbies} = req.body;
     const {correo} = req.params;
     const query = `Call updateUsuario(?,?,?,?,?,?,?,?,?)`
@@ -63,7 +64,7 @@ router.put('/usuarios/:correo',(req,res)=>{
 });
 
 //DELETE -> localhost:3000/usuarios/example@gmail.com
-router.delete('/usuarios:correo',(req,res)=>{
+router.delete('/:correo',(req,res)=>{
     const {correo} = req.params;
     const query = `
         call deleteUsuario(?)
