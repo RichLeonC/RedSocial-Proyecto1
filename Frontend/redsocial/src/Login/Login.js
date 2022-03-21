@@ -68,6 +68,7 @@ function Login (props){
     return(
         <div className='login-container'>
            <Title text = 'Login'/>
+           <br></br>
             <Label text = 'Usuario'/>
             <Input
             attribute={{
@@ -78,6 +79,7 @@ function Login (props){
             }}
             handleChange= {handleChange}
             />
+            <br></br>
             <Label text = 'Contraseña'/>
             <Input
             attribute={{
@@ -88,6 +90,7 @@ function Login (props){
             }}
             handleChange= {handleChange}
             />
+            <br></br>
             <button className="buton-container" onClick={handleSubmit}>
                 Ingresar
             </button>

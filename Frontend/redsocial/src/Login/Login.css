@@ -4,7 +4,12 @@
     justify-content: center;
     align-items: center;
     background-color: #03045E;
-    
+    position: relative;
+    padding: 16px;
+    left: 29rem;
+    top: 7rem;
+    width: 450px;
+    height: 400px;
 
 }
 
