@@ -52,7 +52,7 @@ import "./register.css"
               </div>
               <div className="loginRight">
                 <div className="loginBox">
-                  <input placeholder="correoElectronico" className="loginOutput"
+                  <input placeholder="Correo Electrónico" className="loginOutput"
                     name="correoElectronico" value={correoElectronico} onChange={this.changeHandler}>
                   </input>
                   <input placeholder="Nombre" className="loginOutput"
@@ -68,7 +68,7 @@ import "./register.css"
                     name="fechaNacimiento" value={fechaNacimiento} onChange={this.changeHandler}>
                   </input>
                   <input placeholder="Clave" className="loginOutput"
-                    name="clave" value={clave} onChange={this.changeHandler}>
+                    name="clave" type="password" value={clave} onChange={this.changeHandler}>
                   </input>
                   <input placeholder="Intereses" className="loginOutput"
                     name="intereses" value={intereses} onChange={this.changeHandler}>
@@ -80,9 +80,9 @@ import "./register.css"
                     name="hobbies" value={hobbies} onChange={this.changeHandler}>
                   </input>
                   <button type="submit" className="loginButton">Sign up</button>
-                  {/* <button type="submit" className="loginRegisterButton">
+                  <button type="submit" className="loginRegisterButton">
                     Log into account
-                  </button> */}
+                  </button>
                 </div>
               </div>
             </div>
