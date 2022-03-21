@@ -25,17 +25,26 @@ function Login (props){
    }
 
 
-   function handleSubmit(){
-     axios.get(baseURl+`/${form.correo}`)
+   const handleSubmit=async()=>{
+    await axios.get(baseURl+`/${form.correo}`)
     .then ( response => {
         return response.data;
     }).then (response=> {
             if(response.length>0){
                 var respuesta=response[0];
                 console.log(respuesta);
-            if (respuesta.correo == ("meguilu11@hotmail.com")){
+                cookies.set("correoElectronico",respuesta.correoElectronico,{path:"/"});
+                cookies.set("nombre",respuesta.nombre,{path:"/"});
+                cookies.set("apellido1",respuesta.apellido1,{path:"/"});
+                cookies.set("apellido2",respuesta.apellido2,{path:"/"});
+                cookies.set("fechaNacimiento",respuesta.fechaNacimiento,{path:"/"});
+                cookies.set("clave",respuesta.clave,{path:"/"});
+                cookies.set("intereses",respuesta.intereses,{path:"/"});
+                cookies.set("descripcionGeneral",respuesta.descripcionGeneral,{path:"/"});
+                cookies.set("hobbies",respuesta.hobbies,{path:"/"});
+                props.history.push("/Home");
                
-            }
+            
             }
             else{
                 alert("El usuario o contraseña no son correctoss");
@@ -79,7 +88,7 @@ function Login (props){
             }}
             handleChange= {handleChange}
             />
-            <button onClick={handleSubmit}>
+            <button className="buton-container" onClick={handleSubmit}>
                 Ingresar
             </button>
 
