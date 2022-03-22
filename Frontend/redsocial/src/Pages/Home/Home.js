@@ -28,7 +28,7 @@ export default function Home() {
 
     
 }, [])
-  const pasa = dataUsuario.descripcionGeneral;
+  const pasa = dataUsuario.apellido1;
   console.log(pasa)
 
   return (

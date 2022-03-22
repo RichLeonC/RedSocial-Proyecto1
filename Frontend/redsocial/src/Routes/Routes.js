@@ -3,6 +3,7 @@ import '../Routes/App.css';
 import Login from '../Login/Login.js';
 import {BrowserRouter,Switch,Route} from 'react-router-dom';
 import Home from '../Pages/Home/Home';
+import Register from '../Pages/Register/Register';
 
 
 
@@ -21,6 +22,7 @@ export default function Routes() {
         
               <Route exact path="/" component={Login}/>
               <Route exact path="/Home" component ={Home}/>
+              <Route exact path = "/Register" component ={Register}/>
           </Switch>
           </BrowserRouter>
   )

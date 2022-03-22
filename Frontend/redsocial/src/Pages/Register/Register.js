@@ -28,18 +28,28 @@ import "./register.css"
       e.preventDefault()
       console.log(this.state)
       axios.post('http://localhost:3000/usuarios', this.state)
+    
         .then(response => {
           console.log(response)
+          console.log("me salte todo 1")
+          
         })
         .catch(error => {
           console.log(error)
         })
+        console.log("me salte todo")
     }
+
+ 
 
   //export default function Register() {
     render() {
       const {correoElectronico, nombre, apellido1, apellido2, fechaNacimiento,
         clave, intereses, descripcionGeneral, hobbies} = this.state
+
+     
+
+ 
       return (
         <form onSubmit={this.submitHandler}>
           <div className="login">
@@ -79,10 +89,12 @@ import "./register.css"
                   <input placeholder="Hobbies" className="loginOutput"
                     name="hobbies" value={hobbies} onChange={this.changeHandler}>
                   </input>
-                  <button type="submit" className="loginButton">Sign up</button>
-                  <button type="submit" className="loginRegisterButton">
+                  <button type="submit" className="loginButton" >Sign up</button>
+                 
+                  <button type="submit" className="loginRegisterButton"  >
                     Log into account
                   </button>
+                 
                 </div>
               </div>
             </div>
