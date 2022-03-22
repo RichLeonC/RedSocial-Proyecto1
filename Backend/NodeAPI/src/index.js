@@ -4,12 +4,14 @@ const morgan = require("morgan");
 const usuariosRoute = require("./routes/usuarios");
 const postsRoute = require("./routes/posts.js");
 const app = express();
+const mongoose = require('./Databases/dbMongo');
 
 //Settings
 app.set('port',process.env.PORT||3000); //Setea una variable port, el cual es la que nos puede proveer un SO, caso contrario puerto 3000
 
 // Middlewares (son funciones que se ejecutan antes de que se procese algo)
 app.use(express.json()); //Hace que el servidor entienda formato JSON, para poder accederlo
+
 //app.use(helmet()); //Ayuda a la seguridad 
 app.use(morgan("common"));
 //Routes (son las url's del servidor)
