@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const PostSchema = new mongoose.Schema(
   {
+
     correoElectronico: {
       type: String,
       required: true,
