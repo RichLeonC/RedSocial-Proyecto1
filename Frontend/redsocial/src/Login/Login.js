@@ -47,12 +47,12 @@ function Login (props){
             
             }
             else{
-                alert("El usuario o contraseña no son correctoss");
+                alert("El usuario o contraseña no son correctos");
             }
         }
     )
     .catch(error=>{
-        alert("El usuario o contraseña no son correctoss");
+        alert("El usuario o contraseña no son correctos");
         console.log(error);
     })
 
@@ -61,10 +61,6 @@ function Login (props){
    }
 
   
-
-
-
-
     return(
         <div className='login-container'>
            <Title text = 'Login'/>
