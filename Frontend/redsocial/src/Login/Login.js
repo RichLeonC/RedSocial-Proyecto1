@@ -5,8 +5,7 @@ import Label from './Components/label/label';
 import Input from './Components/Input/Input';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
-
-//import saltHash from 'password-salt-and-hash';
+//import saltHash from 'password-salt-and-hash'
 
 function Login (props){
   
@@ -16,6 +15,9 @@ function Login (props){
         clave:''
         });
     const cookies = new Cookies();
+    const [dataU,setDataU] = useState([]);
+
+
    function handleChange (name, value){
     setForm({
         ...form,
@@ -28,20 +30,21 @@ function Login (props){
    const handleSubmit=async()=>{
     await axios.get(baseURl+`/${form.correo}`)
     .then ( response => {
+        setDataU(response.data);
         return response.data;
-    }).then (response=> {
-            if(response.length>0){
-                var respuesta=response[0];
-                console.log(respuesta);
-                cookies.set("correoElectronico",respuesta.correoElectronico,{path:"/"});
-                cookies.set("nombre",respuesta.nombre,{path:"/"});
-                cookies.set("apellido1",respuesta.apellido1,{path:"/"});
-                cookies.set("apellido2",respuesta.apellido2,{path:"/"});
-                cookies.set("fechaNacimiento",respuesta.fechaNacimiento,{path:"/"});
-                cookies.set("clave",respuesta.clave,{path:"/"});
-                cookies.set("intereses",respuesta.intereses,{path:"/"});
-                cookies.set("descripcionGeneral",respuesta.descripcionGeneral,{path:"/"});
-                cookies.set("hobbies",respuesta.hobbies,{path:"/"});
+    }).then (dataU=> {
+        console.log(dataU)
+            if(!dataU.empty){
+                console.log('captura información')
+                cookies.set("correoElectronico",dataU.correoElectronico,{path:"/"});
+                cookies.set("nombre",dataU.nombre,{path:"/"});
+                cookies.set("apellido1",dataU.apellido1,{path:"/"});
+                cookies.set("apellido2",dataU.apellido2,{path:"/"});
+                cookies.set("fechaNacimiento",dataU.fechaNacimiento,{path:"/"});
+                cookies.set("clave",dataU.clave,{path:"/"});
+                cookies.set("intereses",dataU.intereses,{path:"/"});
+                cookies.set("descripcionGeneral",dataU.descripcionGeneral,{path:"/"});
+                cookies.set("hobbies",dataU.hobbies,{path:"/"});
                 props.history.push("/Home");
                
             
@@ -49,6 +52,7 @@ function Login (props){
             else{
                 alert("El usuario o contraseña no son correctos");
             }
+         
         }
     )
     .catch(error=>{
@@ -60,7 +64,15 @@ function Login (props){
   
    }
 
-  
+  function Navegar (){
+    props.history.push("/Register");
+
+
+  }
+
+
+
+
     return(
         <div className='login-container'>
            <Title text = 'Login'/>
@@ -90,7 +102,11 @@ function Login (props){
             <button className="buton-container" onClick={handleSubmit}>
                 Ingresar
             </button>
-
+            <br></br>
+           
+            <button className="SignUp-Container" onClick={Navegar}>
+                Sign Up
+            </button>
         </div>
 
     )
