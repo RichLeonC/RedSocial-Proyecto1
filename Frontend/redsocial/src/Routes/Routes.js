@@ -4,6 +4,7 @@ import Login from '../Login/Login.js';
 import {BrowserRouter,Switch,Route} from 'react-router-dom';
 import Home from '../Pages/Home/Home';
 import Register from '../Pages/Register/Register';
+import Profile from '../Pages/Profile/Profile';
 
 
 

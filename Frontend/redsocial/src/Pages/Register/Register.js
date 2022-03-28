@@ -78,7 +78,7 @@ import "./register.css"
                     name="fechaNacimiento" value={fechaNacimiento} onChange={this.changeHandler}>
                   </input>
                   <input placeholder="Contraseña" className="loginOutput"
-                    name="password" value={password} onChange={this.changeHandler}>
+                    name="password" value={clave} onChange={this.changeHandler}>
                   </input>
                   <input placeholder="Intereses" className="loginOutput"
                     name="intereses" value={intereses} onChange={this.changeHandler}>

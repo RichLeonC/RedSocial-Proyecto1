@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react';
 import HomeIcon from '@mui/icons-material/Home';
-import Topbar from '../../Components/topbar/Topbar';
-import Feed from '../../Components/feed/Feed';
+import Topbar from '../../components/topbar/Topbar';
+import Feed from '../../components/feed/Feed';
 import './home.css'
 import Sidebar from '../../components/sidebar/Sidebar'
 import Rightbar from '../../components/rightbar/Rightbar';

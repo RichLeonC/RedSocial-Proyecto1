@@ -1,9 +1,9 @@
 import React,{useState,useEffect, Component} from 'react';
 import './profile.css'
-import Topbar from '../../Components/topbar/Topbar';
-import Feed from '../../Components/feed/Feed';
-import Sidebar from '../../Components/sidebar/Sidebar'
-import Rightbar from '../../Components/rightbar/Rightbar';
+import Topbar from '../../components/topbar/Topbar';
+import Feed from '../../components/feed/Feed';
+import Sidebar from '../../components/sidebar/Sidebar'
+import Rightbar from '../../components/rightbar/Rightbar';
 import { Public } from '@mui/icons-material';
 import { ModalHeader,Modal,Button,ModalBody,ModalFooter} from 'reactstrap'
 import TextField from '@mui/material/TextField'
