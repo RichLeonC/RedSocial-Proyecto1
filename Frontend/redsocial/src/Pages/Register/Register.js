@@ -8,14 +8,14 @@ import "./register.css"
     constructor(props) {
       super(props)
       this.state = {
-        email: '',
+        correoElectronico: '',
         nombre: '',
         apellido1: '',
         apellido2: '',
         fechaNacimiento: '',
-        password: '',
+        clave: '',
         intereses: '',
-        descripcion: '',
+        descripcionGeneral: '',
         hobbies: '',
       }
     }
@@ -27,33 +27,43 @@ import "./register.css"
     submitHandler = e => {
       e.preventDefault()
       console.log(this.state)
-      axios.post('https://localhost:3000/usuarios', this.state)
+      axios.post('http://localhost:3000/usuarios', this.state)
+    
         .then(response => {
           console.log(response)
+          console.log("me salte todo 1")
+          
         })
         .catch(error => {
           console.log(error)
         })
+        console.log("me salte todo")
     }
+
+ 
 
   //export default function Register() {
     render() {
-      const {email, nombre, apellido1, apellido2, fechaNacimiento,
-        password, intereses, descripcion, hobbies} = this.state
+      const {correoElectronico, nombre, apellido1, apellido2, fechaNacimiento,
+        clave, intereses, descripcionGeneral, hobbies} = this.state
+
+     
+
+ 
       return (
         <form onSubmit={this.submitHandler}>
           <div className="login">
             <div classname="loginWrapper">
               <div className="loginLeft">
                 <h3 className="loginLogo">Kompusocial</h3>
-                <span>
+                <span className="subTitle">
                   ¡Conéctate con tus amigos digitalmente!
                 </span>
               </div>
               <div className="loginRight">
                 <div className="loginBox">
-                  <input placeholder="Email" className="loginOutput"
-                    name="email" value={email} onChange={this.changeHandler}>
+                  <input placeholder="Correo Electrónico" className="loginOutput"
+                    name="correoElectronico" value={correoElectronico} onChange={this.changeHandler}>
                   </input>
                   <input placeholder="Nombre" className="loginOutput"
                     name="nombre" value={nombre} onChange={this.changeHandler}>
@@ -74,15 +84,17 @@ import "./register.css"
                     name="intereses" value={intereses} onChange={this.changeHandler}>
                   </input>
                   <input placeholder="Descripción general" className="loginOutput"
-                    name="descripcion" value={descripcion} onChange={this.changeHandler}>
+                    name="descripcionGeneral" value={descripcionGeneral} onChange={this.changeHandler}>
                   </input>
                   <input placeholder="Hobbies" className="loginOutput"
                     name="hobbies" value={hobbies} onChange={this.changeHandler}>
                   </input>
-                  <button type="submit" className="loginButton">Sign up</button>
-                  {/* <button type="submit" className="loginRegisterButton">
+                  <button type="submit" className="loginButton" >Sign up</button>
+                 
+                  <button type="submit" className="loginRegisterButton"  >
                     Log into account
-                  </button> */}
+                  </button>
+                 
                 </div>
               </div>
             </div>

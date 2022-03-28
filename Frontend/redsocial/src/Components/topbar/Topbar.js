@@ -5,6 +5,8 @@ import { Chat, Notifications } from '@mui/icons-material';
 import './topbar.css'
 import Home from '../../Pages/Home/Home';
 import JSONDATA from 'C:/Users/USER/Documents/GitHub/RedSocial-Proyecto1/Frontend/redsocial/src/MOCK_DATA.json'
+import Profile from '../../Pages/Profile/Profile.js';
+
 
 
 export default function Topbar(props) {
@@ -44,10 +46,6 @@ export default function Topbar(props) {
             </div>
             
             <div className='topbarRight'>
-                <div className='topbarLinks'>
-                    <span className='topbarLink'>Homepage</span>
-                    <span className='topbarLink'>Timeline</span>
-                </div>
                 <div className="topbarIcons">
                     <div className="topbarIconItem">
                         <PersonIcon />

@@ -34,6 +34,10 @@ BEGIN
 END //
 DELIMITER ;
 
+
+
+call deleteUsuario( 'meguilu11@hotmail.com')
+
 #PROCEDIMIENTO ALMACENADO ENCARGADO DE MODIFICAR EN LA TABLA USUARIO
 DELIMITER //
 create procedure updateUsuario( IN correo varchar(150), IN nombre varchar(50), IN apellido1 varchar(50),
