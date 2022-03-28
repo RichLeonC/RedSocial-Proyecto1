@@ -1,13 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import SearchIcon from '@mui/icons-material/Search';
 import PersonIcon from '@mui/icons-material/Person';
 import { Chat, Notifications } from '@mui/icons-material';
 import './topbar.css'
 import Home from '../../Pages/Home/Home';
+import JSONDATA from 'C:/Users/USER/Documents/GitHub/RedSocial-Proyecto1/Frontend/redsocial/src/MOCK_DATA.json'
+
+
 export default function Topbar(props) {
-    const goHome=()=>{
+    const goHome=( )=>{
         props.history.push("/home")
     }
+
+    const [searchTerm, setSearchTerm] = useState('')
+
     return (
         <div className='topbarContainer'>
             <div className='topbarLeft'>
@@ -17,7 +23,23 @@ export default function Topbar(props) {
             
             <div className='searchbar'>
                 <SearchIcon></SearchIcon>
-                <input placeholder='Buscar amigos' className='searchInput'></input>
+                <input placeholder='Buscar amigos' className='searchInput' type='text'
+                onChange={event => {setSearchTerm(event.target.value)}}>
+                {JSONDATA.filter((val) => {
+                    if (searchTerm == "") {
+                        return val
+                    } else if (val.first_name.toLowerCase().includes(searchTerm.toLowerCase())) {
+                        return val
+                    }
+                }).map((val, key) => {
+                    return (
+                        <div>
+                            <p>{val.first_named}, {val.last_name}</p>
+                        </div>
+                    )
+                })}
+
+                </input>
             </div>
             </div>
             

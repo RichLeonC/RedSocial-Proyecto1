@@ -10,13 +10,14 @@ import Cookies from 'universal-cookie';
 import Register from '../Register/Register';
 
 
-
 export default function Home() {
   return (
    <div>
        <Topbar></Topbar>
        <div className="homeContainer">
-        <Register></Register>
+        <Feed></Feed>
+         <Register></Register>
+        <Rightbar/>
       </div>
        
    </div>
