@@ -70,9 +70,6 @@ function Login (props){
 
   }
 
-
-
-
     return(
         <div className='login-container'>
            <Title text = 'Login'/>
