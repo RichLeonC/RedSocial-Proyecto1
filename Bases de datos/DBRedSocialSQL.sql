@@ -57,7 +57,7 @@ call insertUsuario('meguilu11@hotmail.com', 'Melissa', 'Alguera', 'Castillo', '2
  
  select * from Usuario;
 # from Usuario where correoElectronico like '%user%';
-ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'cmp250230';
+#ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'cmp250230';
 
 insert into Usuario 
 values('r29leonc@gmail.com','Richard','Leon','Chinchilla','2001-07-29',
