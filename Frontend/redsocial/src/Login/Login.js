@@ -28,8 +28,9 @@ function Login (props){
 
 
    const handleSubmit=async()=>{
-    await axios.get(baseURl+`/${form.correo}`)
+    await axios.get(baseURl+`/${form.correo}/${form.clave}`)
     .then ( response => {
+        setDataU([]);
         setDataU(response.data);
         return response.data;
     }).then (dataU=> {
@@ -71,6 +72,7 @@ function Login (props){
   }
 
     return(
+        <div className='fondo'>
         <div className='login-container'>
            <Title text = 'Login'/>
            <br></br>
@@ -105,7 +107,7 @@ function Login (props){
                 Sign Up
             </button>
         </div>
-
+        </div>
     )
 
 
