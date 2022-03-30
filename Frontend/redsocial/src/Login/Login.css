@@ -40,7 +40,34 @@
 
 
 }
+
     
+.SignUp-Container{
+  
+  align-items: center;
+  color: #ffffff;
+  border: 0;
+  background-color: #03045E;
+  border-radius: 0px;
+  box-sizing: border-box;
+  display: flex;
+  font-family: Phantomsans, sans-serif;
+  font-size: 15px;
+  justify-content: center;
+  line-height: 1em;
+  max-width: 95%;
+  min-width: 130px;
+  padding: 17px 20px;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  cursor: pointer;
+
+
+
+}
 
 
 
