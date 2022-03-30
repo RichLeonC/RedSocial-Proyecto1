@@ -7,10 +7,22 @@ import "./sidebar.css";
  } from '@mui/icons-material';
 
 import React,{Component,useState} from 'react';
-export default function Sidebar(props) {
-  
+import { withRouter } from 'react-router';
+import Cookies from "universal-cookie";
+ function Sidebar(props) {
+  const cookies = new Cookies();
   const cerrarSesion=()=>{
-    props.history.push("/")
+    cookies.remove('correoElectronico',{path: '/'})
+    cookies.remove('nombre',{path: '/'})
+    cookies.remove('apellido1',{path: '/'})
+    cookies.remove('apellido2',{path: '/'})
+    cookies.remove('fechaNacimiento',{path: '/'})
+    cookies.remove('clave',{path: '/'})
+    cookies.remove('intereses',{path: '/'})
+    cookies.remove('descripcionGeneral',{path: '/'})
+    cookies.remove('hobbies',{path: '/'})
+    props.history.push("/");
+    
   }
   return (
     <div className="sidebar">
@@ -21,11 +33,13 @@ export default function Sidebar(props) {
             <span className="sidebarListItemText">Feed</span>
           </li>
           <li className="sidebarListItem">
-             <Logout for="log out"className="sidebarIcon" />
-            <span  id="log out" className="sidebarListItemText" onClick={cerrarSesion}>Cerrar sesión</span>
+             <Logout for="log"className="sidebarIcon" />
+            <span id="log" className="sidebarListItemText" onClick={cerrarSesion}>Cerrar sesión</span>
           </li>
         </ul>
       </div>
     </div>
   );
 }
+
+export default withRouter(Sidebar);
