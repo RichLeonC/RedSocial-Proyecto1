@@ -4,10 +4,16 @@ import PersonIcon from '@mui/icons-material/Person';
 import { Chat, Notifications } from '@mui/icons-material';
 import './topbar.css'
 import Home from '../../Pages/Home/Home';
+import Profile from '../../Pages/Profile/Profile.js';
+
+
+
 export default function Topbar(props) {
     const goHome=()=>{
         props.history.push("/home")
     }
+
+    
     return (
         <div className='topbarContainer'>
             <div className='topbarLeft'>
