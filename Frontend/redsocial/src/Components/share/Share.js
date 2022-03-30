@@ -29,7 +29,7 @@ export default function Share() {
         <div className="shareTop">
           <img className="shareProfileImg" src="/assets/person/1.jpeg" alt="" />
           <input
-            placeholder= {`Qué estás pensando ${data.nombre}`}
+            placeholder= {`Qué estás pensando ${data.nombre}?`}
             className="shareInput"
           />
         </div>

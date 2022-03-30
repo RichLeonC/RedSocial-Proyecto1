@@ -1,13 +1,17 @@
+
 import "./sidebar.css";
  import {
    RssFeed,
    Chat,
    Logout
  } from '@mui/icons-material';
-// import { Users } from "../../dummyData";
-// import CloseFriend from "../closeFriend/CloseFriend";
 
-export default function Sidebar() {
+import React,{Component,useState} from 'react';
+export default function Sidebar(props) {
+  
+  const cerrarSesion=()=>{
+    props.history.push("/")
+  }
   return (
     <div className="sidebar">
       <div className="sidebarWrapper">
@@ -17,8 +21,8 @@ export default function Sidebar() {
             <span className="sidebarListItemText">Feed</span>
           </li>
           <li className="sidebarListItem">
-             <Logout className="sidebarIcon" />
-            <span className="sidebarListItemText">Cerrar sesión</span>
+             <Logout for="log out"className="sidebarIcon" />
+            <span  id="log out" className="sidebarListItemText" onClick={cerrarSesion}>Cerrar sesión</span>
           </li>
         </ul>
       </div>
