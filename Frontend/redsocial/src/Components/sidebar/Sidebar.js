@@ -32,8 +32,8 @@ import Cookies from "universal-cookie";
              <RssFeed className="sidebarIcon" /> 
             <span className="sidebarListItemText">Feed</span>
           </li>
-          <li className="sidebarListItem">
-             <Logout for="log"className="sidebarIcon" />
+          <li htmlfo="log" className="sidebarListItem">
+             <Logout htmlfor="log"className="sidebarIcon" />
             <span id="log" className="sidebarListItemText" onClick={cerrarSesion}>Cerrar sesión</span>
           </li>
         </ul>
