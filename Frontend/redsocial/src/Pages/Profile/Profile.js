@@ -5,8 +5,10 @@ import Feed from '../../Components/feed/Feed';
 import Sidebar from '../../Components/sidebar/Sidebar'
 import Rightbar from '../../Components/rightbar/Rightbar';
 import { Public } from '@mui/icons-material';
-import { ModalHeader,Modal,Button,ModalBody,ModalFooter} from 'reactstrap'
-import TextField from '@mui/material/TextField'
+import { ModalHeader,Modal,Button,ModalBody,ModalFooter} from 'reactstrap';
+import TextField from '@mui/material/TextField';
+import axios from 'axios';
+import Cookies from 'universal-cookie';
 
 class Simpletextarea extends Component {
     constructor() {
@@ -34,10 +36,14 @@ class Simpletextarea extends Component {
   }
 
 
+
 export default function Profile() {
     
     const [modalImagen,setModalImagen] = useState(false); //Estado para el modal imagen
     const [modalInfo,setModalInfo] = useState(false); //Estado para el modal informacion
+    const BaseURL = "http://localhost:3000/usuarios/";
+    const cookie = new Cookies();
+    const correoUno = cookie.get("correoElectronico");
 
     const [form,setForm] = useState({
         correo:'',
@@ -66,6 +72,15 @@ export default function Profile() {
         setModalInfo(!modalInfo);
     }
     
+    const ConexionUsuarios = async() => {
+        await axios.put(BaseURL + "/" + correoUno)
+        .then(response => {
+            var respuesta = response.data;
+            var dataAuxiliar = form;
+            console.log(respuesta);
+            console.log(dataAuxiliar);
+        })
+    } 
 
     function infoPersonal(correo, nombre, apellidoUno, apellidoDos, fechaNacimiento, intereses, descripcion, hobbie){
         
@@ -143,7 +158,7 @@ export default function Profile() {
                             Hobbies:
                             <input type="text" name="hobbies" handleChange= {handleChange}/>
                         </label>
-                        <button className="buton-container">
+                        <button className="buton-container" onClick={ConexionUsuarios}>
                             Ingresar
                         </button>
                         
