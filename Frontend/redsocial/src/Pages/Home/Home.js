@@ -14,6 +14,7 @@ export default function Home() {
   const cookies = new Cookies();
   const baseUrl = "http://localhost:3000/usuarios/"+cookies.get("correoElectronico");
   const [dataUsuario,setUsuario] = useState([]);
+  const correo1 = cookies.get("correoElectronico");
 
   const peticionGet = async()=>{ //Realiza peticiones Get al backend 
       await axios.get(baseUrl)
@@ -30,12 +31,13 @@ export default function Home() {
 }, [])
   const pasa = dataUsuario.apellido1;
   console.log(pasa)
+  console.log(correo1);
 
   return (
    <div>
        <Topbar></Topbar>
        <div className="homeContainer">
-        <Sidebar></Sidebar>
+        <Sidebar/> 
         <Feed></Feed>
         
         <Rightbar/>

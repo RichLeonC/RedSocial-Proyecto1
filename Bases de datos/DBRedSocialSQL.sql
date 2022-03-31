@@ -53,9 +53,11 @@ END
 call insertUsuario('meguilu11@hotmail.com', 'Melissa', 'Alguera', 'Castillo', '2000-10-25', 'jacksonWang',
  'Kpop','Brilla Brilla estrellita', 'Bailar');
  
+ select * from Usuario where  correoElectronico = 'meguilu11@hotmail.com' and clave  = 'lopex'
+ 
  select * from Usuario;
 # from Usuario where correoElectronico like '%user%';
-ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'hola123';
+#ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'cmp250230';
 
 insert into Usuario 
 values('r29leonc@gmail.com','Richard','Leon','Chinchilla','2001-07-29',

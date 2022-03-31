@@ -12,6 +12,8 @@ export default function Topbar(props) {
     const goHome=()=>{
         props.history.push("/home")
     }
+
+    
     return (
         <div className='topbarContainer'>
             <div className='topbarLeft'>
