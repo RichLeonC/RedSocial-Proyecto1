@@ -31,13 +31,13 @@ class Register extends Component {
 
       .then(response => {
         console.log(response)
-        console.log("me salte todo 1")
+        alert("Usuario agregado correctamente")
 
       })
       .catch(error => {
         console.log(error)
+        alert("Usuario no se puedo agregar")
       })
-    console.log("me salte todo")
 
   }
 
