@@ -8,8 +8,6 @@ const mongoose = require('./Databases/dbMongo');
 const multer = require('multer') //Para cargar archivos
 const path = require('path');
 
-
-
 //Settings
 app.set('port',process.env.PORT||3000); //Setea una variable port, el cual es la que nos puede proveer un SO, caso contrario puerto 3000
 
@@ -44,5 +42,4 @@ app.use("/images",express.static(path.join(__dirname,'../public/images')));//Par
 //Starting the server
 app.listen(app.get('port'),()=>{ //Va abrir el server en el puerto 3000
     console.log('Server on port',app.get('port'));
-})
-
+}) 
