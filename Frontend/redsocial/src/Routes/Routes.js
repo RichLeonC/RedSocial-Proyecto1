@@ -5,7 +5,6 @@ import {BrowserRouter,Switch,Route} from 'react-router-dom';
 import Home from '../Pages/Home/Home';
 import Profile from '../Pages/Profile/Profile'
 import Register from '../Pages/Register/Register';
-import Profile from '../Pages/Profile/Profile';
 
 
 
@@ -15,7 +14,6 @@ import Profile from '../Pages/Profile/Profile';
 
 export default function Routes() {
     
-
 
   return (
 

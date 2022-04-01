@@ -5,7 +5,7 @@ import Feed from '../../Components/feed/Feed';
 import Sidebar from '../../Components/sidebar/Sidebar'
 import Rightbar from '../../Components/rightbar/Rightbar';
 import { Public } from '@mui/icons-material';
-import { ModalHeader,Modal,Button,ModalBody,ModalFooter} from 'reactstrap';
+import { ModalHeader,Modal,Button,ModalBody,ModalFooter } from 'reactstrap';
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
@@ -41,9 +41,8 @@ export default function Profile() {
     
     const [modalImagen,setModalImagen] = useState(false); //Estado para el modal imagen
     const [modalInfo,setModalInfo] = useState(false); //Estado para el modal informacion
+
     const BaseURL = "http://localhost:3000/usuarios/";
-    const cookie = new Cookies();
-    const correoUno = cookie.get("correoElectronico");
 
     const [form,setForm] = useState({
         correo:'',
@@ -55,6 +54,10 @@ export default function Profile() {
         descGeneral:'',
         hobbies:''
         });
+
+    const cookie = new Cookies();
+    const [dataU,setDataU] = useState([]);
+    const correoUno = cookie.get("correoElectronico");
     
     function handleChange (name, value){
         setForm({
@@ -62,7 +65,7 @@ export default function Profile() {
             [name]:value
         });
         console.log(form);
-        }
+       }
 
     const abrirCerrarModalImagen=()=>{ //Cambia el estado del modal de imagen
         setModalImagen(!modalImagen);
@@ -75,12 +78,40 @@ export default function Profile() {
     const ConexionUsuarios = async() => {
         await axios.put(BaseURL + "/" + correoUno)
         .then(response => {
-            var respuesta = response.data;
-            var dataAuxiliar = form;
-            console.log(respuesta);
-            console.log(dataAuxiliar);
+            setDataU([]);
+            setDataU(response.data);
+            return response.data;
+        }).then (dataU=> {
+            console.log(dataU)
+                if(!dataU.empty){
+                    console.log('captura información')
+                    cookie.set("correoElectronico",dataU.correoElectronico,{path:"/"});
+                    cookie.set("nombre",dataU.nombre,{path:"/"});
+                    cookie.set("apellido1",dataU.apellido1,{path:"/"});
+                    cookie.set("apellido2",dataU.apellido2,{path:"/"});
+                    cookie.set("fechaNacimiento",dataU.fechaNacimiento,{path:"/"});
+                    cookie.set("clave",dataU.clave,{path:"/"});
+                    cookie.set("intereses",dataU.intereses,{path:"/"});
+                    cookie.set("descripcionGeneral",dataU.descripcionGeneral,{path:"/"});
+                    cookie.set("hobbies",dataU.hobbies,{path:"/"});
+                    
+                   
+                
+                }
+                else{
+                    alert("El usuario o contraseña no son correctos");
+                }
+             
+            }
+        )
+        .catch(error=>{
+            alert("El usuario o contraseña no son correctos");
+            console.log(error);
         })
-    } 
+    
+        console.log(form)
+      
+       }
 
     function infoPersonal(correo, nombre, apellidoUno, apellidoDos, fechaNacimiento, intereses, descripcion, hobbie){
         
@@ -105,7 +136,7 @@ export default function Profile() {
     
     return (
         <div>
-
+            {/*
             <Modal isOpen={modalImagen}>
 
                 <ModalBody>
@@ -168,7 +199,7 @@ export default function Profile() {
                     </Button>
                 </ModalFooter>
             </Modal>
-
+    */}
             <Topbar />
             <div className="profile">
                 <Sidebar />
