@@ -3,8 +3,8 @@ import '../Routes/App.css';
 import Login from '../Login/Login.js';
 import {BrowserRouter,Switch,Route} from 'react-router-dom';
 import Home from '../Pages/Home/Home';
-import Profile from '../Pages/Profile/Profile'
 import Register from '../Pages/Register/Register';
+import Profile from '../Pages/Profile/Profile'
 
 
 
