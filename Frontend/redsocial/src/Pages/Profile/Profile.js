@@ -5,48 +5,20 @@ import Feed from '../../Components/feed/Feed';
 import Sidebar from '../../Components/sidebar/Sidebar'
 import Rightbar from '../../Components/rightbar/Rightbar';
 import { Public } from '@mui/icons-material';
-import { ModalHeader,Modal,Button,ModalBody,ModalFooter} from 'reactstrap';
+import { ModalHeader,Modal,Button,ModalBody,ModalFooter } from 'reactstrap';
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
-
-class Simpletextarea extends Component {
-    constructor() {
-      super();
-      this.state = {
-        name: "React"
-      };
-    }
-  
-    handleChange(event) {
-      console.log(event.target.value)
-    }
-  
-    render() {
-      return (
-        <div>
-          <label>Enter value : </label>
-          <input type="textarea" 
-            name="textValue"
-            onChange={this.handleChange}
-          />
-        </div>
-      );
-    }
-  }
-
 
 
 export default function Profile() {
     
     const [modalImagen,setModalImagen] = useState(false); //Estado para el modal imagen
     const [modalInfo,setModalInfo] = useState(false); //Estado para el modal informacion
+
     const BaseURL = "http://localhost:3000/usuarios/";
-    const cookie = new Cookies();
-    const correoUno = cookie.get("correoElectronico");
 
     const [form,setForm] = useState({
-        correo:'',
         nombre:'',
         primApellido:'',
         segApellido:'',
@@ -55,6 +27,10 @@ export default function Profile() {
         descGeneral:'',
         hobbies:''
         });
+
+    const cookie = new Cookies();
+    const [dataU,setDataU] = useState([]);
+    const correoUno = cookie.get("correoElectronico");
     
     function handleChange (name, value){
         setForm({
@@ -62,7 +38,7 @@ export default function Profile() {
             [name]:value
         });
         console.log(form);
-        }
+       }
 
     const abrirCerrarModalImagen=()=>{ //Cambia el estado del modal de imagen
         setModalImagen(!modalImagen);
@@ -72,22 +48,33 @@ export default function Profile() {
         setModalInfo(!modalInfo);
     }
     
-    const ConexionUsuarios = async() => {
-        await axios.put(BaseURL + "/" + correoUno)
-        .then(response => {
-            var respuesta = response.data;
-            var dataAuxiliar = form;
-            console.log(respuesta);
-            console.log(dataAuxiliar);
-        })
-    } 
+    // const ConexionUsuarios = async() => {
+    //     await axios.put(BaseURL + "/" + correoUno)
+    //     .then(response => {
+    //         var respuesta = response.data;
+    //         var dataAuxiliar = form;
+    //         dataAuxiliar.map(usuario => {if (usuario.correo == correoUno) {
+    //             usuario.nombre = respuesta.nombre; 
+    //             usuario.primApellido = respuesta.apellido1;
+    //             usuario.segApellido = respuesta.apellido2;
+    //             usuario.fechaNacimiento = respuesta.fechaNacimiento;
+    //             usuario.intereses = respuesta.intereses;
+    //             usuario.descGeneral = respuesta.descripcionGeneral;
+    //             usuario.hobbies = respuesta.hobbies;
+    //             }
+    //         });
+            
+    //         console.log(respuesta);
+    //         console.log(dataAuxiliar);
+    //     })
+    //     .catch(error => {console.log(error);})
+    // } 
 
-    function infoPersonal(correo, nombre, apellidoUno, apellidoDos, fechaNacimiento, intereses, descripcion, hobbie){
+    function infoPersonal(nombre, apellidoUno, apellidoDos, fechaNacimiento, intereses, descripcion, hobbie){
         
         return(
         <div>
             
-            <h6>  {"Correo electrónico:"} {correo}</h6> <br></br>
             <h6>  {"Nombre:"} {nombre}</h6> <br></br>
             <h6>  {"Primer apellido:"} {apellidoUno}</h6> <br></br>
             <h6>  {"Segundo apellido:"} {apellidoDos}</h6> <br></br>
@@ -127,10 +114,6 @@ export default function Profile() {
                     <h6>Digite su nueva informacion:</h6>
                     <form>
                         <label>
-                            Correo Electronico:
-                            <input type="text" name="correo" handleChange= {handleChange}/>
-                        </label>
-                        <label>
                             Nombre:
                             <input type="text" name="nombre" handleChange= {handleChange}/>
                         </label>
@@ -158,7 +141,7 @@ export default function Profile() {
                             Hobbies:
                             <input type="text" name="hobbies" handleChange= {handleChange}/>
                         </label>
-                        <button className="buton-container" onClick={ConexionUsuarios}>
+                        <button className="buton-container" >
                             Ingresar
                         </button>
                         
@@ -221,5 +204,5 @@ export default function Profile() {
 
 
 
-//onClick = {}
+//onClick={ConexionUsuarios}
 //{infoPersonal("adriherrera09", "Adrián", "Herrera", "Segura", "9 de noviembre, 2001", "El cine", "Un chavalo sencillo", "Minecraft")}
