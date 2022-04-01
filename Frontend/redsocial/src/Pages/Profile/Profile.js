@@ -10,32 +10,6 @@ import TextField from '@mui/material/TextField';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 
-class Simpletextarea extends Component {
-    constructor() {
-      super();
-      this.state = {
-        name: "React"
-      };
-    }
-  
-    handleChange(event) {
-      console.log(event.target.value)
-    }
-  
-    render() {
-      return (
-        <div>
-          <label>Enter value : </label>
-          <input type="textarea" 
-            name="textValue"
-            onChange={this.handleChange}
-          />
-        </div>
-      );
-    }
-  }
-
-
 
 export default function Profile() {
     
@@ -45,7 +19,6 @@ export default function Profile() {
     const BaseURL = "http://localhost:3000/usuarios/";
 
     const [form,setForm] = useState({
-        correo:'',
         nombre:'',
         primApellido:'',
         segApellido:'',
@@ -75,50 +48,33 @@ export default function Profile() {
         setModalInfo(!modalInfo);
     }
     
-    const ConexionUsuarios = async() => {
-        await axios.put(BaseURL + "/" + correoUno)
-        .then(response => {
-            setDataU([]);
-            setDataU(response.data);
-            return response.data;
-        }).then (dataU=> {
-            console.log(dataU)
-                if(!dataU.empty){
-                    console.log('captura información')
-                    cookie.set("correoElectronico",dataU.correoElectronico,{path:"/"});
-                    cookie.set("nombre",dataU.nombre,{path:"/"});
-                    cookie.set("apellido1",dataU.apellido1,{path:"/"});
-                    cookie.set("apellido2",dataU.apellido2,{path:"/"});
-                    cookie.set("fechaNacimiento",dataU.fechaNacimiento,{path:"/"});
-                    cookie.set("clave",dataU.clave,{path:"/"});
-                    cookie.set("intereses",dataU.intereses,{path:"/"});
-                    cookie.set("descripcionGeneral",dataU.descripcionGeneral,{path:"/"});
-                    cookie.set("hobbies",dataU.hobbies,{path:"/"});
-                    
-                   
-                
-                }
-                else{
-                    alert("El usuario o contraseña no son correctos");
-                }
-             
-            }
-        )
-        .catch(error=>{
-            alert("El usuario o contraseña no son correctos");
-            console.log(error);
-        })
-    
-        console.log(form)
-      
-       }
+    // const ConexionUsuarios = async() => {
+    //     await axios.put(BaseURL + "/" + correoUno)
+    //     .then(response => {
+    //         var respuesta = response.data;
+    //         var dataAuxiliar = form;
+    //         dataAuxiliar.map(usuario => {if (usuario.correo == correoUno) {
+    //             usuario.nombre = respuesta.nombre; 
+    //             usuario.primApellido = respuesta.apellido1;
+    //             usuario.segApellido = respuesta.apellido2;
+    //             usuario.fechaNacimiento = respuesta.fechaNacimiento;
+    //             usuario.intereses = respuesta.intereses;
+    //             usuario.descGeneral = respuesta.descripcionGeneral;
+    //             usuario.hobbies = respuesta.hobbies;
+    //             }
+    //         });
+            
+    //         console.log(respuesta);
+    //         console.log(dataAuxiliar);
+    //     })
+    //     .catch(error => {console.log(error);})
+    // } 
 
-    function infoPersonal(correo, nombre, apellidoUno, apellidoDos, fechaNacimiento, intereses, descripcion, hobbie){
+    function infoPersonal(nombre, apellidoUno, apellidoDos, fechaNacimiento, intereses, descripcion, hobbie){
         
         return(
         <div>
             
-            <h6>  {"Correo electrónico:"} {correo}</h6> <br></br>
             <h6>  {"Nombre:"} {nombre}</h6> <br></br>
             <h6>  {"Primer apellido:"} {apellidoUno}</h6> <br></br>
             <h6>  {"Segundo apellido:"} {apellidoDos}</h6> <br></br>
@@ -136,7 +92,7 @@ export default function Profile() {
     
     return (
         <div>
-            {/*
+
             <Modal isOpen={modalImagen}>
 
                 <ModalBody>
@@ -157,10 +113,6 @@ export default function Profile() {
                 <ModalFooter>
                     <h6>Digite su nueva informacion:</h6>
                     <form>
-                        <label>
-                            Correo Electronico:
-                            <input type="text" name="correo" handleChange= {handleChange}/>
-                        </label>
                         <label>
                             Nombre:
                             <input type="text" name="nombre" handleChange= {handleChange}/>
@@ -189,7 +141,7 @@ export default function Profile() {
                             Hobbies:
                             <input type="text" name="hobbies" handleChange= {handleChange}/>
                         </label>
-                        <button className="buton-container" onClick={ConexionUsuarios}>
+                        <button className="buton-container" >
                             Ingresar
                         </button>
                         
@@ -199,7 +151,7 @@ export default function Profile() {
                     </Button>
                 </ModalFooter>
             </Modal>
-    */}
+
             <Topbar />
             <div className="profile">
                 <Sidebar />
@@ -252,5 +204,5 @@ export default function Profile() {
 
 
 
-//onClick = {}
+//onClick={ConexionUsuarios}
 //{infoPersonal("adriherrera09", "Adrián", "Herrera", "Segura", "9 de noviembre, 2001", "El cine", "Un chavalo sencillo", "Minecraft")}
