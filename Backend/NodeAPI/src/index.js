@@ -6,7 +6,7 @@ const postsRoute = require("./routes/posts.js");
 const app = express();
 const mongoose = require('./Databases/dbMongo');
 
-const app1 = require('./routes/firebasechat.js');
+const app1 = require("../Databases/dbFirebase.js");
 
 //Settings
 app.set('port',process.env.PORT||3000); //Setea una variable port, el cual es la que nos puede proveer un SO, caso contrario puerto 3000
