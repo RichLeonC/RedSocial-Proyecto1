@@ -16,7 +16,7 @@ export default function Profile() {
     const [modalImagen,setModalImagen] = useState(false); //Estado para el modal imagen
     const [modalInfo,setModalInfo] = useState(false); //Estado para el modal informacion
 
-    const BaseURL = "http://localhost:3000/usuarios/";
+    const BaseURL = "http://localhost:3000/usuarios";
 
     const [form,setForm] = useState({
         nombre:'',
@@ -47,28 +47,37 @@ export default function Profile() {
     const abrirCerrarModalInfo=()=>{ //Cambia el estado del modal de informacion
         setModalInfo(!modalInfo);
     }
+
     
-    // const ConexionUsuarios = async() => {
-    //     await axios.put(BaseURL + "/" + correoUno)
-    //     .then(response => {
-    //         var respuesta = response.data;
-    //         var dataAuxiliar = form;
-    //         dataAuxiliar.map(usuario => {if (usuario.correo == correoUno) {
-    //             usuario.nombre = respuesta.nombre; 
-    //             usuario.primApellido = respuesta.apellido1;
-    //             usuario.segApellido = respuesta.apellido2;
-    //             usuario.fechaNacimiento = respuesta.fechaNacimiento;
-    //             usuario.intereses = respuesta.intereses;
-    //             usuario.descGeneral = respuesta.descripcionGeneral;
-    //             usuario.hobbies = respuesta.hobbies;
-    //             }
-    //         });
+    useEffect(() => { //Hace efecto la peticion
+       
+        ConexionUsuarios();
+        
+    }, [])
+
+    
+    
+    const ConexionUsuarios = async() => {
+        await axios.put(BaseURL + "/" + correoUno)
+        .then(response => {
+            var respuesta = response.data;
+            var dataAuxiliar = form;
+            dataAuxiliar.map(usuario => {if (usuario.correo == correoUno) {
+                usuario.nombre = respuesta.nombre; 
+                usuario.primApellido = respuesta.apellido1;
+                usuario.segApellido = respuesta.apellido2;
+                usuario.fechaNacimiento = respuesta.fechaNacimiento;
+                usuario.intereses = respuesta.intereses;
+                usuario.descGeneral = respuesta.descripcionGeneral;
+                usuario.hobbies = respuesta.hobbies;
+                }
+            });
             
-    //         console.log(respuesta);
-    //         console.log(dataAuxiliar);
-    //     })
-    //     .catch(error => {console.log(error);})
-    // } 
+            console.log(respuesta);
+            console.log(dataAuxiliar);
+        })
+        .catch(error => {console.log(error);})
+    } 
 
     function infoPersonal(nombre, apellidoUno, apellidoDos, fechaNacimiento, intereses, descripcion, hobbie){
         
@@ -141,7 +150,7 @@ export default function Profile() {
                             Hobbies:
                             <input type="text" name="hobbies" handleChange= {handleChange}/>
                         </label>
-                        <button className="buton-container" >
+                        <button className="buton-container" onClick={ConexionUsuarios}>
                             Ingresar
                         </button>
                         
@@ -185,6 +194,7 @@ export default function Profile() {
                         <button onClick={()=>abrirCerrarModalInfo()} style={{position:"absolute",left:"72rem",marginTop:"1rem"}} className='btn btn-warning'>
                             Editar información
                             </button>
+                            {infoPersonal("adriherrera09", "Adrián", "Herrera", "Segura", "9 de noviembre, 2001", "El cine", "Un chavalo sencillo", "Minecraft")}
                     </div>
 
                     
