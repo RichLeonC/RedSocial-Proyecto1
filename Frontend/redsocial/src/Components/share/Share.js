@@ -27,22 +27,23 @@ export default function Share() {
     e.preventDefault();
     const newPost ={
       correoElectronico:data.correoElectronico,
-      desc: description.current.value
+      description: description.current.value
     }
     if(file){
       const data = new FormData();
-      const fileName = Date.now()+file.name;
+      const fileName = file.name;
       data.append("file",file)
       data.append("name",fileName);
       newPost.img = fileName;
       try{
-        await axios.post("/upload",data);
+        await axios.post("http://localhost:3000/upload",data);
       }catch(error){
         console.log(error);
       }
     }
     try{
-      await axios.post("/posts",newPost)
+      await axios.post("http://localhost:3000/posts",newPost)
+      window.location.reload();
     }catch(error){
 
     }

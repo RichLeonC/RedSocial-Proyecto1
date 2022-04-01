@@ -8,7 +8,6 @@ const mongoose = require('./Databases/dbMongo');
 const multer = require('multer') //Para cargar archivos
 const path = require('path');
 
-const app1 = require('./routes/firebasechat.js');
 
 //Settings
 app.set('port',process.env.PORT||3000); //Setea una variable port, el cual es la que nos puede proveer un SO, caso contrario puerto 3000
@@ -22,7 +21,7 @@ const storage = multer.diskStorage({ //Donde se va a almacenar el archivo cargad
         cb(null,"public/images")
     },
     filename:(req,file,cb)=>{
-        cb(null,req.body.name);
+        cb(null,file.originalname);
     }
 })
 
@@ -46,6 +45,3 @@ app.listen(app.get('port'),()=>{ //Va abrir el server en el puerto 3000
     console.log('Server on port',app.get('port'));
 })
 
-app1.listen(4000)
-
-console.log('Server on port 4000'); 
