@@ -8,14 +8,12 @@ import Register from '../Pages/Register/Register';
 
 
 
-
 //Componentes
 
 //Componente principal que contiene las rutas a los otros componentes
 
 export default function Routes() {
     
-
 
   return (
 
