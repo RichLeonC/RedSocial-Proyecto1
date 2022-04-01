@@ -1,8 +1,10 @@
 import React, { Component } from "react"
 import axios from 'axios'
 import "./register.css"
-import {auth} from "../Home/firebase.js";
+import {auth , db} from "../Home/firebase.js";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import {setDoc, doc , Timestamp} from "firebase/firestore";
+
 import { async } from "@firebase/util";
 
 
@@ -30,7 +32,28 @@ class Register extends Component {
   submitHandler = async (e) => {
     e.preventDefault()
     console.log(this.state)
+    const correo = this.state.correoElectronico;
     const result  = await createUserWithEmailAndPassword(auth, this.state.correoElectronico, this.state.clave);
+    await setDoc(doc(db, 'users', result.user.uid), {
+      uid: result.user.uid,
+      correo,
+      createAt: Timestamp.fromDate(new Date()),
+      isOnline: true,
+    });
+    this.setState({
+      nombre: '',
+      apellido1: '',
+      apellido2: '',
+      fechaNacimiento: '',
+      clave: '',
+      intereses: '',
+      descripcionGeneral: '',
+      hobbies: '',
+      error :null,
+      loading:false
+
+    });
+   // firebase.firestore().collection('users').doc(id).set({});
     console.log(result.user)
     axios.post('http://localhost:3000/usuarios', this.state)
 
