@@ -21,8 +21,32 @@ export default function Share() {
     })
   }
 
-  const descripcion = useRef();
+  const description = useRef();
 
+  const submitHandler=async(e)=>{ //Creamos el post
+    e.preventDefault();
+    const newPost ={
+      correoElectronico:data.correoElectronico,
+      desc: description.current.value
+    }
+    if(file){
+      const data = new FormData();
+      const fileName = Date.now()+file.name;
+      data.append("file",file)
+      data.append("name",fileName);
+      newPost.img = fileName;
+      try{
+        await axios.post("/upload",data);
+      }catch(error){
+        console.log(error);
+      }
+    }
+    try{
+      await axios.post("/posts",newPost)
+    }catch(error){
+
+    }
+  }
   useEffect(() => { //Hace efecto la peticion
     peticionGet();
      
@@ -35,11 +59,11 @@ export default function Share() {
           <input
             placeholder= {`Qué estás pensando ${data.nombre}?`}
             className="shareInput"
-            ref={descripcion}
+            ref={description}
           />
         </div>
         <hr className="shareHr"/>
-        <div className="shareBottom">
+        <form className="shareBottom" onSubmit={submitHandler}>
             <div className="shareOptions">
                 <label htmlFor="file" className="shareOption">
                     <PermMedia htmlColor="tomato" className="shareIcon"/>
@@ -47,8 +71,8 @@ export default function Share() {
                     <input style={{"display":"none"}}type="file" id="file" accept=".png,.jpeg,.jpg" onChange={(e)=>setFile(e.target.files[0])}/>
                 </label>
             </div>
-            <button className="shareButton">Compartir</button>
-        </div>
+            <button className="shareButton" type="submit">Compartir</button>
+        </form>
       </div>
     </div>
   );
