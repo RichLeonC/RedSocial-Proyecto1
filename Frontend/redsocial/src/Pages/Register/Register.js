@@ -1,6 +1,9 @@
 import React, { Component } from "react"
 import axios from 'axios'
 import "./register.css"
+import {auth} from "../Home/firebase.js";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { async } from "@firebase/util";
 
 
 
@@ -24,13 +27,17 @@ class Register extends Component {
     this.setState({ [e.target.name]: e.target.value })
   }
 
-  submitHandler = e => {
+  submitHandler = async (e) => {
     e.preventDefault()
     console.log(this.state)
+    const result  = await createUserWithEmailAndPassword(auth, this.state.correoElectronico, this.state.clave);
+    console.log(result.user)
     axios.post('http://localhost:3000/usuarios', this.state)
 
       .then(response => {
+       
         console.log(response)
+        
         alert("Usuario agregado correctamente")
 
       })
