@@ -5,8 +5,8 @@ import Label from './Components/label/label';
 import Input from './Components/Input/Input';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
-import {auth} from '../firebase';
-//import saltHash from 'password-salt-and-hash'
+
+
 
 function Login (props){
   
