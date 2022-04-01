@@ -47,7 +47,7 @@ export default function Post(props) {
               // src={Users.filter((u) => u.id === post?.userId)[0].profilePicture}
               alt=""
             /> */}
-             <img className="postProfileImg" src="/assets/person/1.jpeg" alt=""/>
+             <img className="postProfileImg" src="/assets/user.png" alt=""/>
 
  
             {/* <span className="postUsername"> */}
