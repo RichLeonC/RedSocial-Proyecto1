@@ -47,7 +47,7 @@ export default function Profile() {
     }
 
     const peticionGet = async () => { //Realiza peticiones Get al backend de los grupos
-        await axios.get(BaseURL + `/${"meguilu11@hotmail.com"}`)
+        await axios.get(BaseURL + `/${Cookies.get('correoElectronico')}`)
             .then(response => {
                 setDataU(response.data);
                 console.log(response.data)
@@ -74,15 +74,14 @@ export default function Profile() {
 
 
     const ConexionUsuarios = async () => {
-        console.log("aqui")
-        await axios.put(BaseURL + `/${"meguilu11@hotmail.com"}`)
+        await axios.put(BaseURL + `/${Cookies.get('correoElectronico')}`)
             .then(response => {
                 var respuesta = response.data;
                 var dataAuxiliar = form;
                 console.log(response.data)
                 console.log(form)
                 dataAuxiliar.map(usuario => {
-                    if (usuario.correo == "meguilu11@hotmail.com") {
+                    if (usuario.correo == Cookies.get('correoElectronico')) {
                         usuario.nombre = respuesta.nombre;
                         usuario.primApellido = respuesta.apellido1;
                         usuario.segApellido = respuesta.apellido2;
@@ -101,16 +100,18 @@ export default function Profile() {
     }
 
     function infoPersonal() {
-
+        //var fechaNacimientoString = dataU.fechaNacimiento.toString();
+        //fechaNacimientoString.slice(0,10)
         return (
             <div>
-                <table class="table" style={{margin: '10rem'}}>
+                <table class="table" style={{margin: '1rem 12rem'}}>
                     <thead>
                         <tr>
                             <th scope="col">Fecha de Nacimiento</th>
                             <th scope="col">Intereses</th>
                             <th scope="col">Descripcion General</th>
                             <th scope="col">Hobbies</th>
+                            <th scope="col">Correo Electronico</th>
                         </tr>
                     </thead>
 
@@ -121,6 +122,7 @@ export default function Profile() {
                             <td>{dataU.intereses}</td>
                             <td>{dataU.descripcionGeneral}</td>
                             <td>{dataU.hobbies}</td>
+                            <td>{dataU.correoElectronico}</td>
                         </tr>
                     </tbody>
                 </table>
