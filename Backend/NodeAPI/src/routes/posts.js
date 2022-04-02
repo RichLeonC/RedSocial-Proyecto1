@@ -61,10 +61,11 @@ router.put("/:id", async (req, res) => {
   });
 
   //Delete post localhost:3000/posts/id
-  router.delete("/:id", async (req, res) => {
+  router.delete("/:id/:correo", async (req, res) => {
     try {
+      const correo = req.params.correo
       const post = await Post.findById(req.params.id);
-      if (post.correoElectronico === req.body.correoElectronico) {
+      if (post.correoElectronico === correo) {
         await post.deleteOne();
         res.status(200).json("Post eliminado");
       } else {

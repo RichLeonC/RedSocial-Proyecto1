@@ -14,11 +14,11 @@ function Login (props){
   
     const baseURl = "http://localhost:3000/usuarios";
     const [form,setForm] = useState({
-        correo:'',
+        correoElectronico:'',
         clave:''
         });
     const cookies = new Cookies();
-    const [dataU,setDataU] = useState([]);
+    const [dataU1,setDataU] = useState([]);
 
 
    function handleChange (name, value){
@@ -34,13 +34,17 @@ function Login (props){
    const result  = await signInWithEmailAndPassword(auth, form.correo, form.clave);
     console.log(result)
     await axios.get(baseURl+`/${form.correo}/${form.clave}`)
+    await axios.get(baseURl+`/${form.correoElectronico}/${form.clave}`)
     .then ( response => {
-        setDataU([]);
+        //setDataU([]);
         setDataU(response.data);
+       console.log("responde: "+response.data.correoElectronico)
         return response.data;
-    }).then (dataU=> {
-        console.log(dataU)
-            if(!dataU.empty){
+    }).then (response=> {
+          //console.log(response.data.correoElectronico)
+            if(1<2){
+                var dataU=response;
+                console.log("Correo:" + dataU.correoElectronico);
                 console.log('captura información')
                 cookies.set("correoElectronico",dataU.correoElectronico,{path:"/"});
                 cookies.set("nombre",dataU.nombre,{path:"/"});
@@ -51,18 +55,19 @@ function Login (props){
                 cookies.set("intereses",dataU.intereses,{path:"/"});
                 cookies.set("descripcionGeneral",dataU.descripcionGeneral,{path:"/"});
                 cookies.set("hobbies",dataU.hobbies,{path:"/"});
+                alert("Bienvenido: "+dataU.nombre+" "+dataU.apellido1)
                 props.history.push("/Home");
                
             
             }
             else{
-                alert("El usuario o contraseña no son correctos");
+                alert("El usuario o contraseña no son correctos e");
             }
          
         }
     )
     .catch(error=>{
-        alert("El usuario o contraseña no son correctos");
+        alert("El usuario o contraseña no son correctos c");
         console.log(error);
     })
 
@@ -87,7 +92,7 @@ function Login (props){
             <Input
             attribute={{
                 id: 'correo',
-                name: 'correo',
+                name: 'correoElectronico',
                 type : 'text',
                 placeholder: 'Ingrese correo'
             }}

@@ -56,7 +56,7 @@ export default function Share() {
     <div className="share">
       <div className="shareWrapper">
         <div className="shareTop">
-          <img className="shareProfileImg" src="/assets/person/1.jpeg" alt="" />
+          <img className="shareProfileImg" src="/assets/user.png" alt="" />
           <input
             placeholder= {`Qué estás pensando ${data.nombre}?`}
             className="shareInput"

@@ -34,10 +34,12 @@ router.get('/:correo',(req,res)=>{
 
 //LOGIN
 router.get('/:correo/:clave',(req,res)=>{ 
-    const {correo,clave} = req.params; //Quiero el correo que proviene como parametro en la url
-    console.log(correo);
+    const {correo} = req.params.correo; //Quiero el correo que proviene como parametro en la url
+    const {clave} = req.params.clave;
+    console.log(req.params.correo);
+    console.log(req.params.clave);
 
-    mysqlConexion.query('select * from Usuario where correoElectronico = ? and clave = ?',[correo,clave],
+    mysqlConexion.query('select * from Usuario where correoElectronico = ? and clave = ?',[req.params.correo,req.params.clave],
     (error,rows,fields)=>{
         if(!error){
             res.json(rows[0]);

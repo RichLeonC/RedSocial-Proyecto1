@@ -11,26 +11,37 @@ import axios from 'axios';
 import Cookies from 'universal-cookie';
 
 
+
+
+
 export default function Profile() {
     
     const [modalImagen,setModalImagen] = useState(false); //Estado para el modal imagen
     const [modalInfo,setModalInfo] = useState(false); //Estado para el modal informacion
 
     const BaseURL = "http://localhost:3000/usuarios";
+    const correoUno = cookie.get("correoElectronico");
 
     const [form,setForm] = useState({
         nombre:'',
         primApellido:'',
         segApellido:'',
         nacimiento:'',
+        clave:'jacksonWang',
         intereses:'',
         descGeneral:'',
         hobbies:''
         });
 
+    useEffect(() => { //Hace efecto la peticion
+        peticionGet();
+        ConexionUsuarios();
+    
+    }, [])
+
     const cookie = new Cookies();
     const [dataU,setDataU] = useState([]);
-    const correoUno = cookie.get("correoElectronico");
+    
     
     function handleChange (name, value){
         setForm({
@@ -39,6 +50,16 @@ export default function Profile() {
         });
         console.log(form);
        }
+
+    const peticionGet = async()=>{ //Realiza peticiones Get al backend de los grupos
+        await axios.get(BaseURL+`/${"meguilu11@hotmail.com"}`)
+        .then(response=>{
+            setDataU(response.data);
+            console.log(response.data)
+         }).catch(error=>{
+            console.log(error);
+         })
+    }
 
     const abrirCerrarModalImagen=()=>{ //Cambia el estado del modal de imagen
         setModalImagen(!modalImagen);
@@ -58,15 +79,19 @@ export default function Profile() {
     
     
     const ConexionUsuarios = async() => {
-        await axios.put(BaseURL + "/" + correoUno)
+        console.log("aqui")
+        await axios.put(BaseURL+`/${"meguilu11@hotmail.com"}`)
         .then(response => {
             var respuesta = response.data;
             var dataAuxiliar = form;
-            dataAuxiliar.map(usuario => {if (usuario.correo == correoUno) {
+            console.log(response.data)
+            console.log(form)
+            dataAuxiliar.map(usuario => {if (usuario.correo == "meguilu11@hotmail.com") {
                 usuario.nombre = respuesta.nombre; 
                 usuario.primApellido = respuesta.apellido1;
                 usuario.segApellido = respuesta.apellido2;
                 usuario.fechaNacimiento = respuesta.fechaNacimiento;
+                usuario.clave = respuesta.clave;
                 usuario.intereses = respuesta.intereses;
                 usuario.descGeneral = respuesta.descripcionGeneral;
                 usuario.hobbies = respuesta.hobbies;
@@ -79,18 +104,18 @@ export default function Profile() {
         .catch(error => {console.log(error);})
     } 
 
-    function infoPersonal(nombre, apellidoUno, apellidoDos, fechaNacimiento, intereses, descripcion, hobbie){
+    function infoPersonal(){
         
         return(
         <div>
             
-            <h6>  {"Nombre:"} {nombre}</h6> <br></br>
-            <h6>  {"Primer apellido:"} {apellidoUno}</h6> <br></br>
-            <h6>  {"Segundo apellido:"} {apellidoDos}</h6> <br></br>
-            <h6>  {"Fecha de Nacimiento:"} {fechaNacimiento}</h6> <br></br>
-            <h6>  {"Intereses:"} {intereses}</h6> <br></br>
-            <h6>  {"Descripcion General:"} {descripcion}</h6> <br></br>
-            <h6>  {"Hobbies:"} {hobbie}</h6> <br></br>
+            <h6>  {"Nombre:"} {dataU.nombre}</h6> <br></br>
+            <h6>  {"Primer apellido:"} {dataU.apellido1}</h6> <br></br>
+            <h6>  {"Segundo apellido:"} {dataU.apellido2}</h6> <br></br>
+            <h6>  {"Fecha de Nacimiento:"} {dataU.fechaNacimiento}</h6> <br></br>
+            <h6>  {"Intereses:"} {dataU.intereses}</h6> <br></br>
+            <h6>  {"Descripcion General:"} {dataU.descripcionGeneral}</h6> <br></br>
+            <h6>  {"Hobbies:"} {dataU.hobbie}</h6> <br></br>
         </div>
         );
     }
@@ -182,22 +207,25 @@ export default function Profile() {
                             <h4 className="profileInfoName">Sara Ramirez</h4>
                             <span className="profileInfoDesc">Hola a todos!</span>
                         </div>
+                        
                     </div>
+                    <br></br>
                     <div className="profileRightBottom">
                         
-                        
-                        <button onClick={()=>abrirCerrarModalImagen()} style={{position:"absolute",left:"63rem",marginTop:"1rem"}} className='btn btn-primary'>
+                    <button onClick={()=>abrirCerrarModalImagen()} >
                             Cambiar foto
                             </button>
-                            
-
-                        <button onClick={()=>abrirCerrarModalInfo()} style={{position:"absolute",left:"72rem",marginTop:"1rem"}} className='btn btn-warning'>
+                    
+                    <button onClick={()=>abrirCerrarModalInfo()} >
                             Editar información
                             </button>
-                            {infoPersonal("adriherrera09", "Adrián", "Herrera", "Segura", "9 de noviembre, 2001", "El cine", "Un chavalo sencillo", "Minecraft")}
+                        
+                    {infoPersonal()} 
+
+                        
                     </div>
 
-                    
+                   
                     
                     
                 </div>
@@ -214,5 +242,5 @@ export default function Profile() {
 
 
 
-//onClick={ConexionUsuarios}
+//
 //{infoPersonal("adriherrera09", "Adrián", "Herrera", "Segura", "9 de noviembre, 2001", "El cine", "Un chavalo sencillo", "Minecraft")}
