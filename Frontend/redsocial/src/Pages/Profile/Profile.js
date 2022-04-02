@@ -104,7 +104,7 @@ export default function Profile() {
         //fechaNacimientoString.slice(0,10)
         return (
             <div>
-                <table class="table" style={{margin: '1rem 12rem'}}>
+                <table class="table" style={{margin: '1rem 8rem'}}>
                     <thead>
                         <tr>
                             <th scope="col">Fecha de Nacimiento</th>
