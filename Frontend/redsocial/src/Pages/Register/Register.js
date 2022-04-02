@@ -1,10 +1,11 @@
-import React, { Component } from "react"
+import React, { Component , useState} from "react"
 import axios from 'axios'
 import "./register.css"
 import {auth , db} from "../Home/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import {setDoc, doc , Timestamp} from "firebase/firestore";
 import { async } from "@firebase/util";
+import { useHistory } from 'react-router-dom';
 
 
 
@@ -24,6 +25,8 @@ class Register extends Component {
     }
   }
 
+  
+  
   changeHandler = e => {
     this.setState({ [e.target.name]: e.target.value })
   }
@@ -31,7 +34,9 @@ class Register extends Component {
   submitHandler = async (e) => {
     e.preventDefault()
     console.log(this.state)
-   try{
+    
+
+  
     const form = this.state.correoElectronico;
     const form2 = this.state.clave;
     const result  = await createUserWithEmailAndPassword(
@@ -40,19 +45,21 @@ class Register extends Component {
        this.state.clave
        );
 
-    // await setDoc(doc(db, "users" , result.user.uid), {
-    //   uid: result.user.uid,
-    //   form,
-    //   form2,
-    //   createAt: Timestamp.fromDate(new Date()),
-    //   isOnline: true,
-    // });
-    
+     await setDoc(doc(db, "users" , result.user.uid), {
+      uid: result.user.uid,
+      form,
+      form2,
+      createAt: Timestamp.fromDate(new Date()),
+      isOnline: true,
+     });
+
+    axios.post('http://localhost:3000/usuarios/',this.state)
+
      console.log(result.user)
 
-     axios.post('http://localhost:3000/usuarios',this.state)
     .then(response => {
       console.log(response)
+  
       alert("Usuario agregado correctamente")
 
     })
@@ -60,7 +67,7 @@ class Register extends Component {
       console.log(error)
       alert("Usuario no se puedo agregar")
     })
-  }catch(err){}
+  
  
 
   }

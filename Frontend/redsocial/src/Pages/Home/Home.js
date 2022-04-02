@@ -36,7 +36,6 @@ export default function Home() {
         <Sidebar></Sidebar>
         <Feed></Feed>
         
-        <Rightbar/>
       </div>
        
    </div>
