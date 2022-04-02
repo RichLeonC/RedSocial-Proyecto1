@@ -35,10 +35,13 @@ function Login (props){
         form.correoElectronico, 
         form.clave);
 
-    await updateDoc(doc(db, "users", result.user.uid), {
+    await updateDoc(doc(dbs, "users", result.user.uid), {
         isOnline: true,
         });
        
+   //const result  = await signInWithEmailAndPassword(auth, form.correo, form.clave);
+   // console.log(result)
+   // await axios.get(baseURl+`/${form.correo}/${form.clave}`)
     await axios.get(baseURl+`/${form.correoElectronico}/${form.clave}`)
     .then ( response => {
         //setDataU([]);

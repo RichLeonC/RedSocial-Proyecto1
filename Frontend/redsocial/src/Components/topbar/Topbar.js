@@ -5,12 +5,16 @@ import { Chat, Notifications } from '@mui/icons-material';
 import './topbar.css'
 import Home from '../../Pages/Home/Home';
 import Profile from '../../Pages/Profile/Profile.js';
+import { withRouter } from 'react-router';
 
 
-
-export default function Topbar(props) {
+function Topbar(props) {
     const goHome=()=>{
         props.history.push("/home")
+    }
+
+    const goProfile=()=>{
+        props.history.push("/Profile")
     }
 
     
@@ -42,10 +46,12 @@ export default function Topbar(props) {
                         <span className='topbarIconBadge'>1</span>
                     </div>
                 </div>
-                <img src="/assets/user.png" alt="" className="topbarImg" />
+                <img src="/assets/user.png" alt="" className="topbarImg" onClick={goProfile} />
             </div>
 
 
         </div>
     )
 }
+
+export default withRouter(Topbar);
