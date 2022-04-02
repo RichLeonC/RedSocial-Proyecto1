@@ -47,7 +47,7 @@ export default function Profile() {
     }
 
     const peticionGet = async () => { //Realiza peticiones Get al backend de los grupos
-        await axios.get(BaseURL + `/${Cookies.get('correoElectronico')}`)
+        await axios.get(BaseURL + `/${cookie.get('correoElectronico')}`)
             .then(response => {
                 setDataU(response.data);
                 console.log(response.data)
@@ -74,14 +74,14 @@ export default function Profile() {
 
 
     const ConexionUsuarios = async () => {
-        await axios.put(BaseURL + `/${Cookies.get('correoElectronico')}`)
+        await axios.put(BaseURL + `/${cookie.get('correoElectronico')}`)
             .then(response => {
                 var respuesta = response.data;
                 var dataAuxiliar = form;
                 console.log(response.data)
                 console.log(form)
                 dataAuxiliar.map(usuario => {
-                    if (usuario.correo == Cookies.get('correoElectronico')) {
+                    if (usuario.correo == cookie.get('correoElectronico')) {
                         usuario.nombre = respuesta.nombre;
                         usuario.primApellido = respuesta.apellido1;
                         usuario.segApellido = respuesta.apellido2;
