@@ -22,8 +22,9 @@ export default function Routes() {
         
               <Route exact path="/" component={Login}/>
               <Route exact path="/Home" component ={Home}/>
-              <Route exact path="/Profile/:usuario" component={Profile}/>
+              {/*<Route exact path="/Profile/:usuario" component={Profile}/>*/}
               <Route exact path= "/Register" component ={Register}/>
+              <Route exact path="/Profile" component={Profile}/>
               
           </Switch>
           </BrowserRouter>
