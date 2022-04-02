@@ -4,6 +4,8 @@ import './Login.css';
 import Label from './Components/label/label';
 import Input from './Components/Input/Input';
 import axios from 'axios';
+import {auth , db} from "../Pages/Home/firebase.js";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import Cookies from 'universal-cookie';
 
 
@@ -29,6 +31,8 @@ function Login (props){
 
 
    const handleSubmit=async()=>{
+   const result  = await signInWithEmailAndPassword(auth, form.correo, form.clave);
+    console.log(result)
     await axios.get(baseURl+`/${form.correo}/${form.clave}`)
     .then ( response => {
         setDataU([]);
