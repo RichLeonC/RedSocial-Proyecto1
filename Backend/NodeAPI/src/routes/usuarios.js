@@ -1,5 +1,7 @@
 const express = require('express');
+const { append } = require('express/lib/response');
 const router = express.Router();
+
 
 const mysqlConexion = require('../Databases/dbMySQL')
 
@@ -15,12 +17,29 @@ router.get('/',(req,res)=>{ //req es request
 });
 
 //GET Devuelve un solo usuario, filtra por el correo ->localhost:3000/usuarios/example@gmail.com
-router.get('/correo/:clave',(req,res)=>{ 
-    const {correo} = req.params.correo; //Quiero el correo que proviene como parametro en la url
-    const {clave} = req.body.clave; //Quiero el correo que proviene como parametro en la url
+router.get('/:correo',(req,res)=>{ 
+    const {correo} = req.params; //Quiero el correo que proviene como parametro en la url
+    //const {clave} = req.params.clave; //Quiero el correo que proviene como parametro en la url
     console.log(correo);
 
-    mysqlConexion.query('select * from Usuario where correoElectronico = ? and clave = ? ',[correo],[clave],
+    mysqlConexion.query('select * from Usuario where correoElectronico = ?',[correo],
+    (error,rows,fields)=>{
+        if(!error){
+            res.json(rows[0]);
+        }else{
+            console.log(error);
+        }
+    });
+})
+
+//LOGIN
+router.get('/:correo/:clave',(req,res)=>{ 
+    const {correo} = req.params.correo; //Quiero el correo que proviene como parametro en la url
+    const {clave} = req.params.clave;
+    console.log(req.params.correo);
+    console.log(req.params.clave);
+
+    mysqlConexion.query('select * from Usuario where correoElectronico = ? and clave = ?',[req.params.correo,req.params.clave],
     (error,rows,fields)=>{
         if(!error){
             res.json(rows[0]);

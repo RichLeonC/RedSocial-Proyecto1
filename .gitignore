@@ -103,3 +103,9 @@ dist
 # TernJS port file
 .tern-port
 Backend/NodeAPI/src/Databases/dbMySQL.js
+Backend/NodeAPI/src/Databases/dbMySQL.js
+Backend/NodeAPI/src/Databases/dbMySQL.js
+Frontend/redsocial/package-lock.json
+Frontend/redsocial/package-lock.json
+Backend/NodeAPI/package-lock.json
+Frontend/redsocial/package-lock.json

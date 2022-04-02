@@ -5,33 +5,13 @@ import Feed from '../../components/feed/Feed';
 import Sidebar from '../../components/sidebar/Sidebar'
 import Rightbar from '../../components/rightbar/Rightbar';
 import { Public } from '@mui/icons-material';
-import { ModalHeader,Modal,Button,ModalBody,ModalFooter} from 'reactstrap'
-import TextField from '@mui/material/TextField'
+import { ModalHeader,Modal,Button,ModalBody,ModalFooter } from 'reactstrap';
+import TextField from '@mui/material/TextField';
+import axios from 'axios';
+import Cookies from 'universal-cookie';
 
-class Simpletextarea extends Component {
-    constructor() {
-      super();
-      this.state = {
-        name: "React"
-      };
-    }
-  
-    handleChange(event) {
-      console.log(event.target.value)
-    }
-  
-    render() {
-      return (
-        <div>
-          <label>Enter value : </label>
-          <input type="textarea" 
-            name="textValue"
-            onChange={this.handleChange}
-          />
-        </div>
-      );
-    }
-  }
+
+
 
 
 export default function Profile() {
@@ -39,16 +19,29 @@ export default function Profile() {
     const [modalImagen,setModalImagen] = useState(false); //Estado para el modal imagen
     const [modalInfo,setModalInfo] = useState(false); //Estado para el modal informacion
 
+    const BaseURL = "http://localhost:3000/usuarios";
+    const correoUno = cookie.get("correoElectronico");
+
     const [form,setForm] = useState({
-        correo:'',
         nombre:'',
         primApellido:'',
         segApellido:'',
         nacimiento:'',
+        clave:'jacksonWang',
         intereses:'',
         descGeneral:'',
         hobbies:''
         });
+
+    useEffect(() => { //Hace efecto la peticion
+        peticionGet();
+        ConexionUsuarios();
+    
+    }, [])
+
+    const cookie = new Cookies();
+    const [dataU,setDataU] = useState([]);
+    
     
     function handleChange (name, value){
         setForm({
@@ -56,7 +49,17 @@ export default function Profile() {
             [name]:value
         });
         console.log(form);
-        }
+       }
+
+    const peticionGet = async()=>{ //Realiza peticiones Get al backend de los grupos
+        await axios.get(BaseURL+`/${"meguilu11@hotmail.com"}`)
+        .then(response=>{
+            setDataU(response.data);
+            console.log(response.data)
+         }).catch(error=>{
+            console.log(error);
+         })
+    }
 
     const abrirCerrarModalImagen=()=>{ //Cambia el estado del modal de imagen
         setModalImagen(!modalImagen);
@@ -65,21 +68,54 @@ export default function Profile() {
     const abrirCerrarModalInfo=()=>{ //Cambia el estado del modal de informacion
         setModalInfo(!modalInfo);
     }
-    
 
-    function infoPersonal(correo, nombre, apellidoUno, apellidoDos, fechaNacimiento, intereses, descripcion, hobbie){
+    
+    useEffect(() => { //Hace efecto la peticion
+       
+        ConexionUsuarios();
+        
+    }, [])
+
+    
+    
+    const ConexionUsuarios = async() => {
+        console.log("aqui")
+        await axios.put(BaseURL+`/${"meguilu11@hotmail.com"}`)
+        .then(response => {
+            var respuesta = response.data;
+            var dataAuxiliar = form;
+            console.log(response.data)
+            console.log(form)
+            dataAuxiliar.map(usuario => {if (usuario.correo == "meguilu11@hotmail.com") {
+                usuario.nombre = respuesta.nombre; 
+                usuario.primApellido = respuesta.apellido1;
+                usuario.segApellido = respuesta.apellido2;
+                usuario.fechaNacimiento = respuesta.fechaNacimiento;
+                usuario.clave = respuesta.clave;
+                usuario.intereses = respuesta.intereses;
+                usuario.descGeneral = respuesta.descripcionGeneral;
+                usuario.hobbies = respuesta.hobbies;
+                }
+            });
+            
+            console.log(respuesta);
+            console.log(dataAuxiliar);
+        })
+        .catch(error => {console.log(error);})
+    } 
+
+    function infoPersonal(){
         
         return(
         <div>
             
-            <h6>  {"Correo electrónico:"} {correo}</h6> <br></br>
-            <h6>  {"Nombre:"} {nombre}</h6> <br></br>
-            <h6>  {"Primer apellido:"} {apellidoUno}</h6> <br></br>
-            <h6>  {"Segundo apellido:"} {apellidoDos}</h6> <br></br>
-            <h6>  {"Fecha de Nacimiento:"} {fechaNacimiento}</h6> <br></br>
-            <h6>  {"Intereses:"} {intereses}</h6> <br></br>
-            <h6>  {"Descripcion General:"} {descripcion}</h6> <br></br>
-            <h6>  {"Hobbies:"} {hobbie}</h6> <br></br>
+            <h6>  {"Nombre:"} {dataU.nombre}</h6> <br></br>
+            <h6>  {"Primer apellido:"} {dataU.apellido1}</h6> <br></br>
+            <h6>  {"Segundo apellido:"} {dataU.apellido2}</h6> <br></br>
+            <h6>  {"Fecha de Nacimiento:"} {dataU.fechaNacimiento}</h6> <br></br>
+            <h6>  {"Intereses:"} {dataU.intereses}</h6> <br></br>
+            <h6>  {"Descripcion General:"} {dataU.descripcionGeneral}</h6> <br></br>
+            <h6>  {"Hobbies:"} {dataU.hobbie}</h6> <br></br>
         </div>
         );
     }
@@ -112,10 +148,6 @@ export default function Profile() {
                     <h6>Digite su nueva informacion:</h6>
                     <form>
                         <label>
-                            Correo Electronico:
-                            <input type="text" name="correo" handleChange= {handleChange}/>
-                        </label>
-                        <label>
                             Nombre:
                             <input type="text" name="nombre" handleChange= {handleChange}/>
                         </label>
@@ -143,7 +175,7 @@ export default function Profile() {
                             Hobbies:
                             <input type="text" name="hobbies" handleChange= {handleChange}/>
                         </label>
-                        <button className="buton-container">
+                        <button className="buton-container" onClick={ConexionUsuarios}>
                             Ingresar
                         </button>
                         
@@ -175,21 +207,25 @@ export default function Profile() {
                             <h4 className="profileInfoName">Sara Ramirez</h4>
                             <span className="profileInfoDesc">Hola a todos!</span>
                         </div>
+                        
                     </div>
+                    <br></br>
                     <div className="profileRightBottom">
                         
-                        
-                        <button onClick={()=>abrirCerrarModalImagen()} style={{position:"absolute",left:"63rem",marginTop:"1rem"}} className='btn btn-primary'>
+                    <button onClick={()=>abrirCerrarModalImagen()} >
                             Cambiar foto
                             </button>
-                            
-
-                        <button onClick={()=>abrirCerrarModalInfo()} style={{position:"absolute",left:"72rem",marginTop:"1rem"}} className='btn btn-warning'>
+                    
+                    <button onClick={()=>abrirCerrarModalInfo()} >
                             Editar información
                             </button>
+                        
+                    {infoPersonal()} 
+
+                        
                     </div>
 
-                    
+                   
                     
                     
                 </div>
@@ -206,5 +242,5 @@ export default function Profile() {
 
 
 
-//onClick = {}
+//
 //{infoPersonal("adriherrera09", "Adrián", "Herrera", "Segura", "9 de noviembre, 2001", "El cine", "Un chavalo sencillo", "Minecraft")}
