@@ -3,6 +3,16 @@ const router = express.Router();
 
 const Post = require("../models/Post");
 
+//GET Post filtrado por correo
+router.get("/:correo", async (req, res) => {
+  try {
+    const post = await Post.find({correoElectronico:req.params.correo});
+    res.status(200).json(post);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 //Get post by ID  localhost:3000/posts/id
 router.get("/:id", async (req, res) => {
     try {
@@ -12,6 +22,18 @@ router.get("/:id", async (req, res) => {
       res.status(500).json(err);
     }
   });
+
+//GET Post filtrado por alguna llave que no existe para que devuelva todos los posts
+//localhost:3000/posts/s/d -> devuelve todos los posts que existen
+router.get("/:s/:d", async (req, res) => {
+  try {
+    const post = await Post.find({s:req.params.s});
+    res.status(200).json(post);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 //Create post localhost:3000/posts
  router.post('/',async(req,res)=>{
      const newPost = new Post(req.body);
@@ -39,10 +61,11 @@ router.put("/:id", async (req, res) => {
   });
 
   //Delete post localhost:3000/posts/id
-  router.delete("/:id", async (req, res) => {
+  router.delete("/:id/:correo", async (req, res) => {
     try {
+      const correo = req.params.correo
       const post = await Post.findById(req.params.id);
-      if (post.correoElectronico === req.body.correoElectronico) {
+      if (post.correoElectronico === correo) {
         await post.deleteOne();
         res.status(200).json("Post eliminado");
       } else {

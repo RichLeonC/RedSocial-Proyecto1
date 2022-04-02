@@ -42,7 +42,7 @@ export default function Topbar(props) {
                         <span className='topbarIconBadge'>1</span>
                     </div>
                 </div>
-                <img src="/assets/person/1.jpeg" alt="" className="topbarImg" />
+                <img src="/assets/user.png" alt="" className="topbarImg" />
             </div>
 
 

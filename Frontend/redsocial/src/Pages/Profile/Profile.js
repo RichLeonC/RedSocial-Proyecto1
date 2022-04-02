@@ -68,6 +68,15 @@ export default function Profile() {
     const abrirCerrarModalInfo=()=>{ //Cambia el estado del modal de informacion
         setModalInfo(!modalInfo);
     }
+
+    
+    useEffect(() => { //Hace efecto la peticion
+       
+        ConexionUsuarios();
+        
+    }, [])
+
+    
     
     const ConexionUsuarios = async() => {
         console.log("aqui")

@@ -20,7 +20,7 @@ const storage = multer.diskStorage({ //Donde se va a almacenar el archivo cargad
         cb(null,"public/images")
     },
     filename:(req,file,cb)=>{
-        cb(null,req.body.name);
+        cb(null,file.originalname);
     }
 })
 
@@ -42,4 +42,5 @@ app.use("/images",express.static(path.join(__dirname,'../public/images')));//Par
 //Starting the server
 app.listen(app.get('port'),()=>{ //Va abrir el server en el puerto 3000
     console.log('Server on port',app.get('port'));
-}) 
+})
+

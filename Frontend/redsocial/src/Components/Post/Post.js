@@ -1,10 +1,42 @@
 import "./post.css";
+import React,{useState,useEffect} from 'react';
 import { MoreVert } from "@mui/icons-material";
+import axios from 'axios';
+import Cookies from 'universal-cookie';
 // import { Users } from "../../dummyData";
-import { useState } from "react";
 
-export default function Post({ post }) {
 
+export default function Post(props) {
+  const baseUrl = `http://localhost:3000/posts/r29leonc@gmail.com`
+  const baseUrlImg = `http://localhost:3000/images/${props.post.img}`
+  const [dataPost, setDataPost] = useState([])
+
+  const [imgSeleccionada,setImgSeleccionada] = useState([]);
+  const peticionGet = async()=>{ //Realiza peticiones Get al backend Matriculas
+    await axios.get(baseUrl)
+    .then(response=>{
+        setDataPost(response.data);
+        console.log(dataPost)
+    }).catch(error=>{
+        console.log(error);
+    })
+  }
+
+  const peticionGetImagenes = async()=>{ //Realiza peticiones Get al backend Matriculas
+    await axios.get(baseUrlImg)
+    .then(response=>{
+        setImgSeleccionada(response.data);
+        console.log(dataPost)
+    }).catch(error=>{
+        console.log(error);
+    })
+  }
+
+  useEffect(() => { //Hace efecto la peticion
+    peticionGet();
+    peticionGetImagenes();
+     
+  }, [])
   return (
     <div className="post">
       <div className="postWrapper">
@@ -15,13 +47,13 @@ export default function Post({ post }) {
               // src={Users.filter((u) => u.id === post?.userId)[0].profilePicture}
               alt=""
             /> */}
-             <img className="postProfileImg" src="/assets/person/1.jpeg" alt=""/>
+             <img className="postProfileImg" src="/assets/user.png" alt=""/>
 
  
             {/* <span className="postUsername"> */}
               {/* {Users.filter((u) => u.id === post?.userId)[0].username} */}
             {/* </span> */}
-            <span className="postUsername">Carlita Mora</span>
+            <span className="postUsername">{props.post.correoElectronico}</span>
             {/* <span className="postDate">{post.date}</span> */}
           </div>
           <div className="postTopRight">
@@ -30,9 +62,9 @@ export default function Post({ post }) {
         </div>
         <div className="postCenter">
           {/* <span className="postText">{post?.desc}</span> */}
-          <span className="postText">Mi primera publicacion</span>
+          <span className="postText">{props.post.description}</span>
           {/* <img className="postImg" src={post.photo} alt="" /> */}
-           <img className="postImg" src="/assets/post/1.jpeg"/>
+           <img className="postImg" src={`http://localhost:3000/images/${props.post.img}`}/>
         </div>
         <div className="postBottom">
           <div className="postBottomLeft">
