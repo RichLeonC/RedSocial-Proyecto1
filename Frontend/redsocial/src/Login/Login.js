@@ -35,7 +35,7 @@ function Login (props){
         form.correoElectronico, 
         form.clave);
 
-    await updateDoc(doc(dbs, "users", result.user.uid), {
+    await updateDoc(doc(db, "users", result.user.uid), {
         isOnline: true,
         });
        
