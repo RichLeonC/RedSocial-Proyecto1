@@ -37,7 +37,6 @@ export default function Home() {
        <div className="homeContainer">
         <Feed></Feed>
         
-        <Rightbar/>
       </div>
        
    </div>

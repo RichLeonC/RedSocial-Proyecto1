@@ -4,8 +4,10 @@ import './Login.css';
 import Label from './Components/label/label';
 import Input from './Components/Input/Input';
 import axios from 'axios';
+import {auth , db} from "../Pages/Home/firebase.js";
 import Cookies from 'universal-cookie';
-
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { updateDoc, doc } from "firebase/firestore";
 
 
 function Login (props){
@@ -29,6 +31,17 @@ function Login (props){
 
 
    const handleSubmit=async()=>{
+    const result = await signInWithEmailAndPassword(auth, 
+        form.correoElectronico, 
+        form.clave);
+
+    await updateDoc(doc(dbs, "users", result.user.uid), {
+        isOnline: true,
+        });
+       
+   //const result  = await signInWithEmailAndPassword(auth, form.correo, form.clave);
+   // console.log(result)
+   // await axios.get(baseURl+`/${form.correo}/${form.clave}`)
     await axios.get(baseURl+`/${form.correoElectronico}/${form.clave}`)
     .then ( response => {
         //setDataU([]);
