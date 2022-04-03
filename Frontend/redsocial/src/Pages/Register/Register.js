@@ -55,7 +55,7 @@ class Register extends Component {
 
     axios.post('http://localhost:3000/usuarios/',this.state)
 
-     console.log(result.user)
+    // console.log(result.user)
 
     .then(response => {
       console.log(response)

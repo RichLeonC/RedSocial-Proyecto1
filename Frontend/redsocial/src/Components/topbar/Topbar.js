@@ -1,7 +1,7 @@
-import React, {useEffect, useState } from 'react'
+import React, {useState } from 'react'
 import SearchIcon from '@mui/icons-material/Search';
 import PersonIcon from '@mui/icons-material/Person';
-import { Chat, Notifications } from '@mui/icons-material';
+import { Chat, DataObjectSharp, Notifications } from '@mui/icons-material';
 import './topbar.css'
 import Home from '../../Pages/Home/Home';
 // import JSONDATA from 'C:/Users/USER/Documents/GitHub/RedSocial-Proyecto1/Frontend/redsocial/src/MOCK_DATA.json'
@@ -18,12 +18,32 @@ function Topbar(props) {
         props.history.push("/Profile")
     }
 
-    useEffect(() => {
-        console.log('useEffect')
-    })
+    const [equipo, setEquipo] = useState([])
+
+    React.useEffect= (() => {
+        //console.log('useEffect')
+        obtenerDatos()
+    }, [])
+
+    const obtenerDatos = async() => {
+        const data = await fetch('http://localhost:3000/usuarios/')
+        const users = await data.json()
+        //console.log(users)
+        setEquipo(users)
+    }
 
     return (
         <div className='topbarContainer'>
+            <div>
+                <h1>Resultados</h1>
+                <ul>
+                    {
+                        equipo.map(item => (
+                            <li key="item.correoElectronico">{item.nombre} - {item.apellido1}</li>
+                        ))
+                    }
+                </ul>
+                </div>
             <div className='topbarLeft'>
             <span className='logo' onClick={()=>goHome()}>KS</span>
         </div>
@@ -52,9 +72,10 @@ function Topbar(props) {
                 </div>
                 <img src="/assets/user.png" alt="" className="topbarImg" onClick={goProfile} />
             </div>
-
+            
 
         </div>
+        
     )
 }
 
