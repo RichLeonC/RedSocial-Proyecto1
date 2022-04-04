@@ -31,17 +31,16 @@ function Login (props){
 
 
    const handleSubmit=async()=>{
-    const result = await signInWithEmailAndPassword(auth, 
-        form.correoElectronico, 
-        form.clave);
+    // const result = await signInWithEmailAndPassword(auth, 
+    //     form.correoElectronico, 
+    //     form.clave);
 
-    await updateDoc(doc(dbs, "users", result.user.uid), {
-        isOnline: true,
-        });
+    // await updateDoc(doc(db, "users", result.user.uid), {
+    //     isOnline: true,
+    //     });
        
    //const result  = await signInWithEmailAndPassword(auth, form.correo, form.clave);
-   // console.log(result)
-   // await axios.get(baseURl+`/${form.correo}/${form.clave}`)
+
     await axios.get(baseURl+`/${form.correoElectronico}/${form.clave}`)
     .then ( response => {
         //setDataU([]);

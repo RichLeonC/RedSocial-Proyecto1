@@ -35,7 +35,7 @@ export default function Home() {
        <div className="homeContainer">
         <Sidebar></Sidebar>
         <Feed></Feed>
-        
+        <Rightbar></Rightbar>
       </div>
        
    </div>

@@ -55,17 +55,16 @@ class Register extends Component {
 
     axios.post('http://localhost:3000/usuarios/',this.state)
 
-     console.log(result.user)
+    
 
     .then(response => {
-      console.log(response)
-  
       alert("Usuario agregado correctamente")
+      console.log(response)
 
     })
     .catch(error => {
-      console.log(error)
       alert("Usuario no se puedo agregar")
+      console.log(error)
     })
   
  
