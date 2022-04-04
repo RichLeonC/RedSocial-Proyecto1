@@ -23,7 +23,7 @@ export default function Profile() {
         primApellido: '',
         segApellido: '',
         nacimiento: '',
-        clave: 'jacksonWang',
+        clave: '',
         intereses: '',
         descGeneral: '',
         hobbies: ''
@@ -104,7 +104,7 @@ export default function Profile() {
         //fechaNacimientoString.slice(0,10)
         return (
             <div>
-                <table class="table" style={{margin: '1rem 8rem'}}>
+                <table class="table" style={{ margin: '1rem 8rem' }}>
                     <thead>
                         <tr>
                             <th scope="col">Fecha de Nacimiento</th>
@@ -117,7 +117,7 @@ export default function Profile() {
 
                     <tbody>
                         <tr>
-                            
+
                             <td>{dataU.fechaNacimiento}</td>
                             <td>{dataU.intereses}</td>
                             <td>{dataU.descripcionGeneral}</td>
@@ -143,9 +143,20 @@ export default function Profile() {
                     Cambio de imagen
                 </ModalBody>
                 <ModalFooter>
-                    <Button className="btn btn-secondary" size="sm" onClick={() => abrirCerrarModalImagen()}>
-                        No
-                    </Button>
+                    <h6>Escriba el nombre de la imagen:</h6>
+                    <form>
+                        <label>
+                            <input type="text" name="imagen" />
+                        </label>
+                        <input type="submit" value="Submit" />
+                        <Button className="btn btn-secondary" size="sm" onClick={() => cambioImagen('fotoPerfil.jpg')}>
+                            Listo
+                        </Button>
+
+                        <Button className="btn btn-secondary" size="sm" onClick={() => abrirCerrarModalImagen()}>
+                            No
+                        </Button>
+                    </form>
                 </ModalFooter>
             </Modal>
 
