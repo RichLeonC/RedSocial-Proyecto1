@@ -7,6 +7,7 @@ const app = express();
 const mongoose = require('./Databases/dbMongo');
 const multer = require('multer') //Para cargar archivos
 const path = require('path');
+const cors =require('cors');
 
 //Settings
 app.set('port',process.env.PORT||3000); //Setea una variable port, el cual es la que nos puede proveer un SO, caso contrario puerto 3000
@@ -14,6 +15,7 @@ app.set('port',process.env.PORT||3000); //Setea una variable port, el cual es la
 // Middlewares (son funciones que se ejecutan antes de que se procese algo)
 app.use(express.json()); //Hace que el servidor entienda formato JSON, para poder accederlo
 app.use(morgan("common"));
+app.use(cors());
 
 const storage = multer.diskStorage({ //Donde se va a almacenar el archivo cargado
     destination:(req,file,cb)=>{

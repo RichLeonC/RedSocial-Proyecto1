@@ -22,6 +22,8 @@ class Register extends Component {
       intereses: '',
       descripcionGeneral: '',
       hobbies: '',
+      error: null,
+      loading: false,
     }
   }
 
@@ -34,25 +36,8 @@ class Register extends Component {
   submitHandler = async (e) => {
     e.preventDefault()
     console.log(this.state)
+
     
-
-  
-    const form = this.state.correoElectronico;
-    const form2 = this.state.clave;
-    // const result  = await createUserWithEmailAndPassword(
-    //    auth, 
-    //    this.state.correoElectronico, 
-    //    this.state.clave
-    //    );
-
-    //  await setDoc(doc(db, "users" , result.user.uid), {
-    //   uid: result.user.uid,
-    //   form,
-    //   form2,
-    //   createAt: Timestamp.fromDate(new Date()),
-    //   isOnline: true,
-    //  });
-
     axios.post('http://localhost:3000/usuarios/',this.state)
 
     
@@ -67,6 +52,28 @@ class Register extends Component {
       console.log(error)
     })
   
+    
+
+  
+    const form = this.state.correoElectronico;
+    const form2 = this.state.clave;
+    const result  = await createUserWithEmailAndPassword(
+      auth, 
+      this.state.correoElectronico, 
+      this.state.clave
+     );
+
+    console.log(result.user) 
+
+     await setDoc(doc(db, "users" , result.user.uid), {
+      uid: result.user.uid,
+      form,
+      form2,
+      createAt: Timestamp.fromDate(new Date()),
+      isOnline: true,
+      });
+
+    
  
 
   }
