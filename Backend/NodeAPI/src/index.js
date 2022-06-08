@@ -17,6 +17,7 @@ app.use(express.json()); //Hace que el servidor entienda formato JSON, para pode
 app.use(morgan("common"));
 app.use(cors());
 
+
 const storage = multer.diskStorage({ //Donde se va a almacenar el archivo cargado
     destination:(req,file,cb)=>{
         cb(null,"public/images")

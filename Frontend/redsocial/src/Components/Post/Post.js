@@ -64,7 +64,19 @@ export default function Post(props) {
           {/* <span className="postText">{post?.desc}</span> */}
           <span className="postText">{props.post.description}</span>
           {/* <img className="postImg" src={post.photo} alt="" /> */}
-           <img className="postImg" src={`http://localhost:3000/images/${props.post.img}`}/>
+          {((props.post.img).toUpperCase().includes('.PNG') || (props.post.img).toUpperCase().includes('.JPG') || (props.post.img).toUpperCase().includes('.JPGE')) &&
+          
+          <img className="postImg" src={`http://localhost:3000/images/${props.post.img}`}/>
+          }
+           { ((props.post.img).toUpperCase().includes('.PDF') || (props.post.img).toUpperCase().includes('.DOCX')||(props.post.img).toUpperCase().includes('.TXT'))&& 
+           <iframe src={`http://localhost:3000/images/${props.post.img}`}></iframe>
+           }
+
+           {((props.post.img).toUpperCase().includes('.MP3') || (props.post.img).toUpperCase().includes('.MP4')) &&
+
+             <video src={`http://localhost:3000/images/${props.post.img}`} autoplay muted loop ></video>
+
+           }
         </div>
         <div className="postBottom">
           <div className="postBottomLeft">
