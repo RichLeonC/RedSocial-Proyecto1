@@ -15,6 +15,7 @@ app.set('port',process.env.PORT||3000); //Setea una variable port, el cual es la
 app.use(express.json()); //Hace que el servidor entienda formato JSON, para poder accederlo
 app.use(morgan("common"));
 
+
 const storage = multer.diskStorage({ //Donde se va a almacenar el archivo cargado
     destination:(req,file,cb)=>{
         cb(null,"public/images")
