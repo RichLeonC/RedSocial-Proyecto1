@@ -32,6 +32,21 @@ router.get('/:correo',(req,res)=>{
     });
 })
 
+//GET Devuelve un solo usuario, filtra por el correo o nombre ->localhost:3000/usuarios/example@gmail.com
+router.get('/:correo/2',(req,res)=>{ 
+    const {correo} = req.params; //Quiero el correo que proviene como parametro en la url
+    console.log(correo);
+
+    mysqlConexion.query('select * from Usuario where correoElectronico = ? or nombre = ?',[correo,correo],
+    (error,rows,fields)=>{
+        if(!error){
+            res.json(rows);
+        }else{
+            console.log(error);
+        }
+    });
+})
+
 //LOGIN
 router.get('/:correo/:clave',(req,res)=>{ 
     const {correo} = req.params.correo; //Quiero el correo que proviene como parametro en la url
