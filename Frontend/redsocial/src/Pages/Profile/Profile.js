@@ -30,11 +30,7 @@ export default function Profile(props) {
         hobbies: ''
     });
 
-    useEffect(() => { //Hace efecto la peticion
-        peticionGet();
-        ConexionUsuarios();
 
-    }, [])
 
     const [dataU, setDataU] = useState([]);
 
@@ -72,11 +68,6 @@ export default function Profile(props) {
     }
 
 
-    useEffect(() => { //Hace efecto la peticion
-
-        ConexionUsuarios();
-
-    }, [form])
 
 
 
@@ -115,6 +106,12 @@ export default function Profile(props) {
             })
             .catch(error => { console.log(error); })
     }
+
+    useEffect(() => { //Hace efecto la peticion
+        peticionGet();
+       // ConexionUsuarios();
+
+    }, [])
 
     function infoPersonal() {
         //var fechaNacimientoString = dataU.fechaNacimiento.toString();
