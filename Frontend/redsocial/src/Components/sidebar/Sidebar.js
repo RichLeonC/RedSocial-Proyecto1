@@ -1,17 +1,26 @@
 
 import "./sidebar.css";
- import {
-   RssFeed,
-   Chat,
-   Logout
- } from '@mui/icons-material';
-
+import { signOut } from "firebase/auth";
+import {RssFeed,Chat,Logout} from '@mui/icons-material';
 import React,{Component,useState} from 'react';
 import { withRouter } from 'react-router';
 import Cookies from "universal-cookie";
+import { updateDoc, doc } from "firebase/firestore";
+import { auth, db} from '../../Pages/Home/firebase';
+
+
+
+
+
+
  function Sidebar(props) {
-  const cookies = new Cookies();
-  const cerrarSesion=()=>{
+   const cookies = new Cookies();
+
+  const cerrarSesion= async ()=>{
+    await updateDoc(doc(db, "users", auth.currentUser.uid), {
+      isOnline: false,
+      });
+    await auth.signOut();
     cookies.remove('correoElectronico',{path: '/'})
     cookies.remove('nombre',{path: '/'})
     cookies.remove('apellido1',{path: '/'})
@@ -22,6 +31,7 @@ import Cookies from "universal-cookie";
     cookies.remove('descripcionGeneral',{path: '/'})
     cookies.remove('hobbies',{path: '/'})
     props.history.push("/");
+    
     
   }
   return (
