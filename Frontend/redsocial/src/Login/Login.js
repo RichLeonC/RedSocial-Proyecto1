@@ -20,7 +20,7 @@ function Login (props){
     const cookies = new Cookies();
     const [dataU1,setDataU] = useState([]);
 
-
+ 
    function handleChange (name, value){
     setForm({
         ...form,
@@ -31,17 +31,23 @@ function Login (props){
 
 
    const handleSubmit=async()=>{
-    // const result = await signInWithEmailAndPassword(auth, 
-    //     form.correoElectronico, 
-    //     form.clave);
-
-    // await updateDoc(doc(db, "users", result.user.uid), {
-    //     isOnline: true,
-    //     });
+     
        
    //const result  = await signInWithEmailAndPassword(auth, form.correo, form.clave);
+   const correo=  form.correoElectronico;
+   const pass = form.clave;
+   const result = await signInWithEmailAndPassword(auth,correo, pass);
+   
+   await updateDoc(doc(db, "users", result.user.uid), {
+       isOnline: true,
+       });
+  
+
 
     await axios.get(baseURl+`/${form.correoElectronico}/${form.clave}`)
+
+
+
     .then ( response => {
         //setDataU([]);
         setDataU(response.data);
@@ -70,6 +76,7 @@ function Login (props){
             else{
                 alert("El usuario o contraseña no son correctos e");
             }
+
          
         }
     )
@@ -78,8 +85,9 @@ function Login (props){
         console.log(error);
     })
 
-    console.log(form)
-  
+
+
+
    }
 
   function Navegar (){
