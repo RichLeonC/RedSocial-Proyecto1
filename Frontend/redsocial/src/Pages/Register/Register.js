@@ -57,10 +57,12 @@ class Register extends Component {
   
     const form = this.state.correoElectronico;
     const form2 = this.state.clave;
+    const form3 = this.state.nombre;
     const result  = await createUserWithEmailAndPassword(
       auth, 
       this.state.correoElectronico, 
-      this.state.clave
+      this.state.clave,
+      this.state.nombre
      );
 
     console.log(result.user) 
@@ -69,6 +71,7 @@ class Register extends Component {
       uid: result.user.uid,
       form,
       form2,
+      form3,
       createAt: Timestamp.fromDate(new Date()),
       isOnline: true,
       });

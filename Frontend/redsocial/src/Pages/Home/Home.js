@@ -9,6 +9,7 @@ import axios from 'axios';
 import Cookies from 'universal-cookie';
 import {db, auth } from '../Home/firebase';
 import { collection, query, where, onSnapshot, QuerySnapshot } from 'firebase/firestore';
+import User from '../../Components/chat/User';
 
 export default function Home() {
   const cookies = new Cookies();
@@ -53,6 +54,10 @@ export default function Home() {
         <Sidebar></Sidebar>
         <Feed></Feed>
         <Rightbar></Rightbar>
+        <div className='user-container'>
+          {users.map(user => <User key={user.uid} user={user}/>)}
+
+        </div>
       </div>
        
    </div>
