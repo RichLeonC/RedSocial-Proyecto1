@@ -21,30 +21,13 @@
 .user_info {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: left;
 }
 .user_detail {
   display: flex;
-  align-items: center;
+  align-items: left;
 }
 .user_detail h4 {
   margin-left: 10px;
 }
 
-.user_wrapper {
-  margin-bottom: 10px;
-  padding: 10px;
-  cursor: pointer;
-}
-
-.user_status {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-}
-.online {
-  background: #34eb52;
-}
-.offline {
-  background: red;
-}

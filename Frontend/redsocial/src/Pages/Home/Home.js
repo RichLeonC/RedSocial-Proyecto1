@@ -10,12 +10,14 @@ import Cookies from 'universal-cookie';
 import {db, auth } from '../Home/firebase';
 import { collection, query, where, onSnapshot, QuerySnapshot } from 'firebase/firestore';
 import User from '../../Components/chat/User';
+import { StackedLineChartTwoTone } from '@mui/icons-material';
 
 export default function Home() {
   const cookies = new Cookies();
   const baseUrl = "http://localhost:3000/usuarios/"+cookies.get("correoElectronico");
   const [dataUsuario,setUsuario] = useState([]);
   const [users, setUsers] = useState([]);
+  const [chat, setChat] = useState('');
 
   const peticionGet = async()=>{ //Realiza peticiones Get al backend 
       await axios.get(baseUrl)
@@ -48,7 +50,7 @@ export default function Home() {
   console.log(pasa)
 
   const selectUser = (user) =>{
-
+    setChat(user);
     console.log(user)
 
   }
@@ -62,7 +64,15 @@ export default function Home() {
         <Rightbar></Rightbar>
         <div className='user-container'>
           {users.map(user => <User key={user.uid} user={user} selectUser={selectUser}/>)}
+        </div>
 
+        <div className='messages_container'>
+          {chat ? (<div className='message_user'>
+              <h3>{chat.form3}</h3>
+            </div> ):( <h3 className='no_conv'>Elija un usuario</h3>
+
+          )}
+    
         </div>
       </div>
        
