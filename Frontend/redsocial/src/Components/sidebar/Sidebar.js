@@ -42,6 +42,7 @@ import { Link } from "react-router-dom";
       {user ? (
           <>
             <Link to="/Profile">Feed</Link>
+            <br></br>
             <button className="btn" onClick={cerrarSesion}>
               Logout
             </button>
