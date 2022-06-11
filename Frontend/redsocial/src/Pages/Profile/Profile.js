@@ -10,30 +10,26 @@ import TextField from '@mui/material/TextField';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 
-export default function Profile() {
+export default function Profile(props) {
 
     const [modalImagen, setModalImagen] = useState(false); //Estado para el modal imagen
     const [modalInfo, setModalInfo] = useState(false); //Estado para el modal informacion
+    const [modalVerificado, setModalVerificador] = useState(false);
     const cookie = new Cookies();
     const BaseURL = "http://localhost:3000/usuarios";
     const correoUno = cookie.get("correoElectronico");
 
     const [form, setForm] = useState({
-        nombre: '',
-        primApellido: '',
-        segApellido: '',
-        nacimiento: '',
-        clave: '',
+        nombre: "Adrian",
+        apellido1: "Herrera",
+        apellido2: "Segura",
+        fechaNacimiento: '',
+        clave: "spider",
         intereses: '',
-        descGeneral: '',
+        descripcionGeneral: '',
         hobbies: ''
     });
 
-    useEffect(() => { //Hace efecto la peticion
-        peticionGet();
-        ConexionUsuarios();
-
-    }, [])
 
 
     const [dataU, setDataU] = useState([]);
@@ -43,14 +39,14 @@ export default function Profile() {
             ...form,
             [name]: value
         });
-        console.log(form);
+        // console.log(form);
     }
 
     const peticionGet = async () => { //Realiza peticiones Get al backend de los grupos
         await axios.get(BaseURL + `/${cookie.get('correoElectronico')}`)
             .then(response => {
                 setDataU(response.data);
-                console.log(response.data)
+                // console.log(response.data)
             }).catch(error => {
                 console.log(error);
             })
@@ -64,17 +60,20 @@ export default function Profile() {
         setModalInfo(!modalInfo);
     }
 
+    const abrirCerrarModalVerificador = () => { //Cambia el estado del modal de informacion
+        // if (modalVerificado == false){
+        //     ConexionUsuarios()
+        // }
+        setModalVerificador(!modalVerificado);
+    }
 
-    useEffect(() => { //Hace efecto la peticion
 
-        ConexionUsuarios();
-
-    }, [])
 
 
 
     const ConexionUsuarios = async () => {
-        await axios.put(BaseURL + `/${cookie.get('correoElectronico')}`)
+        console.log(form)
+        await axios.put(BaseURL + `/${cookie.get('correoElectronico')}`, form)
             .then(response => {
                 var respuesta = response.data;
                 var dataAuxiliar = form;
@@ -90,6 +89,15 @@ export default function Profile() {
                         usuario.intereses = respuesta.intereses;
                         usuario.descGeneral = respuesta.descripcionGeneral;
                         usuario.hobbies = respuesta.hobbies;
+
+                        // respuesta.nombre = "Adrian";
+                        // respuesta.apellido1 = "Herrera";
+                        // respuesta.apellido2 = "Segura";
+                        // respuesta.fechaNacimiento = "2011-11-09";
+                        // respuesta.clave = "spider";
+                        // respuesta.intereses = "nada";
+                        // respuesta.descripcionGeneral = "soy yo";
+                        // usuario.hobbies = "jugar";
                     }
                 });
 
@@ -98,6 +106,12 @@ export default function Profile() {
             })
             .catch(error => { console.log(error); })
     }
+
+    useEffect(() => { //Hace efecto la peticion
+        peticionGet();
+       // ConexionUsuarios();
+
+    }, [])
 
     function infoPersonal() {
         //var fechaNacimientoString = dataU.fechaNacimiento.toString();
@@ -170,7 +184,7 @@ export default function Profile() {
                     <form>
                         <label>
                             Fecha de Nacimiento:
-                            <input type="text" name="nacimiento" handleChange={handleChange} />
+                            <input type="text" name="fechaNacimiento" handleChange={handleChange} />
                         </label>
                         <label>
                             Intereses:
@@ -178,19 +192,32 @@ export default function Profile() {
                         </label>
                         <label>
                             Descripcion General:
-                            <input type="text" name="descGeneral" handleChange={handleChange} />
+                            <input type="text" name="descripcionGeneral" handleChange={handleChange} />
                         </label>
                         <label>
                             Hobbies:
                             <input type="text" name="hobbies" handleChange={handleChange} />
                         </label>
-                        <button className="buton-container" onClick={ConexionUsuarios}>
+                        <button className="buton-container" onClick={() => abrirCerrarModalVerificador()}>
                             Ingresar
                         </button>
 
                     </form>
                     <Button className="btn btn-secondary" size="sm" onClick={() => abrirCerrarModalInfo()}>
                         No
+                    </Button>
+                </ModalFooter>
+            </Modal>
+
+            <Modal isOpen={modalVerificado}>
+
+                <ModalBody>
+                    Cambio de informacion
+                </ModalBody>
+                <ModalFooter>
+
+                    <Button className="btn btn-secondary" size="sm" onClick={() => abrirCerrarModalVerificador()}>
+                        Listo
                     </Button>
                 </ModalFooter>
             </Modal>

@@ -1,8 +1,9 @@
 import "./post.css";
-import React,{useState,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { MoreVert } from "@mui/icons-material";
 import axios from 'axios';
 import Cookies from 'universal-cookie';
+import { ModalHeader, Modal, Button, ModalBody, ModalFooter } from 'reactstrap';
 // import { Users } from "../../dummyData";
 
 
@@ -10,32 +11,35 @@ export default function Post(props) {
   const baseUrl = `http://localhost:3000/posts/r29leonc@gmail.com`
   const baseUrlImg = `http://localhost:3000/images/${props.post.img}`
   const [dataPost, setDataPost] = useState([])
+ 
 
-  const [imgSeleccionada,setImgSeleccionada] = useState([]);
-  const peticionGet = async()=>{ //Realiza peticiones Get al backend Matriculas
+
+
+  const [imgSeleccionada, setImgSeleccionada] = useState([]);
+  const peticionGet = async () => { //Realiza peticiones Get al backend Matriculas
     await axios.get(baseUrl)
-    .then(response=>{
+      .then(response => {
         setDataPost(response.data);
         console.log(dataPost)
-    }).catch(error=>{
+      }).catch(error => {
         console.log(error);
-    })
+      })
   }
 
-  const peticionGetImagenes = async()=>{ //Realiza peticiones Get al backend Matriculas
+  const peticionGetImagenes = async () => { //Realiza peticiones Get al backend Matriculas
     await axios.get(baseUrlImg)
-    .then(response=>{
+      .then(response => {
         setImgSeleccionada(response.data);
         console.log(dataPost)
-    }).catch(error=>{
+      }).catch(error => {
         console.log(error);
-    })
+      })
   }
 
   useEffect(() => { //Hace efecto la peticion
     peticionGet();
     peticionGetImagenes();
-     
+
   }, [])
   return (
     <div className="post">
@@ -47,11 +51,11 @@ export default function Post(props) {
               // src={Users.filter((u) => u.id === post?.userId)[0].profilePicture}
               alt=""
             /> */}
-             <img className="postProfileImg" src="/assets/user.png" alt=""/>
+            <img className="postProfileImg" src="/assets/user.png" alt="" />
 
- 
+
             {/* <span className="postUsername"> */}
-              {/* {Users.filter((u) => u.id === post?.userId)[0].username} */}
+            {/* {Users.filter((u) => u.id === post?.userId)[0].username} */}
             {/* </span> */}
             <span className="postUsername">{props.post.correoElectronico}</span>
             {/* <span className="postDate">{post.date}</span> */}
@@ -65,22 +69,22 @@ export default function Post(props) {
           <span className="postText">{props.post.description}</span>
           {/* <img className="postImg" src={post.photo} alt="" /> */}
           {((props.post.img).toUpperCase().includes('.PNG') || (props.post.img).toUpperCase().includes('.JPG') || (props.post.img).toUpperCase().includes('.JPGE')) &&
-          
-          <img className="postImg" src={`http://localhost:3000/images/${props.post.img}`}/>
+
+            <img className="postImg" src={`http://localhost:3000/images/${props.post.img}`} />
           }
-           { ((props.post.img).toUpperCase().includes('.PDF') || (props.post.img).toUpperCase().includes('.DOCX')||(props.post.img).toUpperCase().includes('.TXT'))&& 
-           <iframe src={`http://localhost:3000/images/${props.post.img}`}></iframe>
-           }
+          {((props.post.img).toUpperCase().includes('.PDF') || (props.post.img).toUpperCase().includes('.DOCX') || (props.post.img).toUpperCase().includes('.TXT')) &&
+            <iframe src={`http://localhost:3000/images/${props.post.img}`}></iframe>
+          }
 
-           {((props.post.img).toUpperCase().includes('.MP3') || (props.post.img).toUpperCase().includes('.MP4')) &&
+          {((props.post.img).toUpperCase().includes('.MP3') || (props.post.img).toUpperCase().includes('.MP4')) &&
 
-             <video src={`http://localhost:3000/images/${props.post.img}`} autoplay muted loop ></video>
+            <video src={`http://localhost:3000/images/${props.post.img}`} autoplay muted loop ></video>
 
-           }
+          }
         </div>
         <div className="postBottom">
           <div className="postBottomLeft">
-             {/* <img className="likeIcon" src="assets/like.png" onClick={likeHandler} alt="" />
+            {/* <img className="likeIcon" src="assets/like.png" onClick={likeHandler} alt="" />
             <img className="likeIcon" src="assets/heart.png" onClick={likeHandler} alt="" /> 
             <span className="postLikeCounter">{like} people like it</span> */}
           </div>
@@ -90,6 +94,7 @@ export default function Post(props) {
           </div>
         </div>
       </div>
+
     </div>
   );
 }
