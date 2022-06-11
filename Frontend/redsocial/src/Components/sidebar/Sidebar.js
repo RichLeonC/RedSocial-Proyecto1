@@ -2,20 +2,21 @@
 import "./sidebar.css";
 import { signOut } from "firebase/auth";
 import {RssFeed,Chat,Logout} from '@mui/icons-material';
-import React,{Component,useState} from 'react';
+import React,{Component,useState, useContext} from 'react';
 import { withRouter } from 'react-router';
 import Cookies from "universal-cookie";
 import { updateDoc, doc } from "firebase/firestore";
 import { auth, db} from '../../Pages/Home/firebase';
-
-
+import { AuthContext } from '../../Contexto/auth';
+import userEvent from "@testing-library/user-event";
+import { Link } from "react-router-dom";
 
 
 
 
  function Sidebar(props) {
    const cookies = new Cookies();
-
+   const { user } = useContext(AuthContext);
   const cerrarSesion= async ()=>{
     await updateDoc(doc(db, "users", auth.currentUser.uid), {
       isOnline: false,
@@ -37,16 +38,21 @@ import { auth, db} from '../../Pages/Home/firebase';
   return (
     <div className="sidebar">
       <div className="sidebarWrapper">
-        <ul className="sidebarList">
-          <li className="sidebarListItem">
-             <RssFeed className="sidebarIcon" /> 
-            <span className="sidebarListItemText">Feed</span>
-          </li>
-          <li htmlfo="log" className="sidebarListItem">
-             <Logout htmlfor="log"className="sidebarIcon" />
-            <span id="log" className="sidebarListItemText" onClick={cerrarSesion}>Cerrar sesión</span>
-          </li>
-        </ul>
+        
+      {user ? (
+          <>
+            <Link to="/Profile">Feed</Link>
+            <button className="btn" onClick={cerrarSesion}>
+              Logout
+            </button>
+          </>
+        ) : (
+          <>
+            
+          </>
+        )}
+
+  
       </div>
     </div>
   );

@@ -5,6 +5,8 @@ import {BrowserRouter,Switch,Route} from 'react-router-dom';
 import Home from '../Pages/Home/Home';
 import Register from '../Pages/Register/Register';
 import Profile from '../Pages/Profile/Profile';
+import AuthProvider from '../Contexto/auth';
+import PrivateRoute from '../Contexto/PrivateRoute';
 
 
 
@@ -17,19 +19,19 @@ export default function Routes() {
     
 
   return (
-
+    <AuthProvider>
       <BrowserRouter>
           <Switch>
         
               <Route exact path="/" component={Login}/>
-              <Route exact path="/Home" component ={Home}/>
+              <PrivateRoute exact path="/Home" component ={Home}/>
               {/*<Route exact path="/Profile/:usuario" component={Profile}/>*/}
               <Route exact path= "/Register" component ={Register}/>
-             
               <Route exact path="/Profile" component={Profile}/>
               
           </Switch>
-          </BrowserRouter>
+        </BrowserRouter>
+      </AuthProvider>
   )
 }
 
