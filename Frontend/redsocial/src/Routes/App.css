@@ -17,3 +17,17 @@
   justify-content: center;
   font-size: 3rem;
 }
+
+.user_info {
+  display: flex;
+  justify-content: space-between;
+  align-items: left;
+}
+.user_detail {
+  display: flex;
+  align-items: left;
+}
+.user_detail h4 {
+  margin-left: 10px;
+}
+

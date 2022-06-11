@@ -1,4 +1,42 @@
 .homeContainer{
     display: flex;
     width: 100%;
+   
 }
+
+.user-container {
+    position: relative;
+    display: flex;
+    align-items: left;
+    justify-content: left;
+    height: 90vw;
+    width: 25vw;
+    background-image: linear-gradient(144deg,#5b5cbb, #48658b 60%,#209ee2);
+  }
+
+  .messages_container {
+    position: relative;
+    display: flex;
+    align-items: left;
+    justify-content: left;
+    height: 80vw;
+    width: 20vw;
+    
+  }
+  
+  .messages_user {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 2px solid var(black);
+  }
+  
+  .no_conv {
+    font-size: 20px;
+    color: var(grey);
+    text-align: center;
+  }
+  
+  
+  
+  
+  
