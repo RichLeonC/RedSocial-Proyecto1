@@ -46,7 +46,13 @@ export default function Home() {
 
   const pasa = dataUsuario.apellido1;
   console.log(pasa)
-  console.log(users)
+
+  const selectUser = (user) =>{
+
+    console.log(user)
+
+  }
+
   return (
    <div>
        <Topbar></Topbar>
@@ -55,7 +61,7 @@ export default function Home() {
         <Feed></Feed>
         <Rightbar></Rightbar>
         <div className='user-container'>
-          {users.map(user => <User key={user.uid} user={user}/>)}
+          {users.map(user => <User key={user.uid} user={user} selectUser={selectUser}/>)}
 
         </div>
       </div>
