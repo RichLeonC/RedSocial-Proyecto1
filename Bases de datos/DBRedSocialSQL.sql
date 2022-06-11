@@ -35,9 +35,6 @@ END //
 DELIMITER ;
 
 
-
-call deleteUsuario( 'meguilu11@hotmail.com')
-
 #PROCEDIMIENTO ALMACENADO ENCARGADO DE MODIFICAR EN LA TABLA USUARIO
 DELIMITER //
 create procedure updateUsuario( IN correo varchar(150), IN nombre varchar(50), IN apellido1 varchar(50),
@@ -50,8 +47,14 @@ BEGIN
 END
 //
 
-call insertUsuario('meguilu11@hotmail.com', 'Melissa', 'Alguera', 'Castillo', '2000-10-25', 'jacksonWang',
- 'Kpop','Brilla Brilla estrellita', 'Bailar');
+call insertUsuario('meguilu11@hotmail.com', 'Melissa', 'Alguera', 'Castillo', '2000-10-25', 'admin123',
+ 'Tecnologia','Estudiante', 'Cantar');
+ call insertUsuario('sova@gmail.com', 'Ronald', 'Cordero', 'Fallas', '2000-05-06', 'admin123',
+ 'Tecnologia','Estudiante', 'soy el cazador');
+ call insertUsuario('spiderman@gmail.com', 'Adrian', 'Herrera', 'Segura', '2001-11-09', 'admin123',
+ 'Tecnologia','Estudiante', 'le gusta spiderman');
+ call insertUsuario('test@gmail.com', 'Richard', 'Leon', 'Chinchilla', '2001-07-20', 'asdmin123',
+ 'Tecnologia','Estudiante', 'si quieren jugal,juguemos');
  
 
  select * from Usuario;
