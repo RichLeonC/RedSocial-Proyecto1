@@ -7,11 +7,14 @@ import Sidebar from '../../Components/sidebar/Sidebar'
 import Rightbar from '../../Components/rightbar/Rightbar';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
+import {db, auth } from '../Home/firebase';
+import { collection, query, where, onSnapshot, QuerySnapshot } from 'firebase/firestore';
 
 export default function Home() {
   const cookies = new Cookies();
   const baseUrl = "http://localhost:3000/usuarios/"+cookies.get("correoElectronico");
   const [dataUsuario,setUsuario] = useState([]);
+  const [users, setUsers] = useState([]);
 
   const peticionGet = async()=>{ //Realiza peticiones Get al backend 
       await axios.get(baseUrl)
@@ -22,13 +25,27 @@ export default function Home() {
       })
   }
   useEffect(() => { //Hace efecto la peticion
+    
     peticionGet();
+    const usersRef = collection(db, 'users')
+    // create query objett
+    const q = query(usersRef, where('uid', 'not-in', [auth.currentUser.uid]))
+    //execute query 
+    const unsub = onSnapshot(q, QuerySnapshot =>{
+      let users = []
+      QuerySnapshot.forEach(doc => {
+          users.push(doc.data())
+      })
+      setUsers(users);
+    });
 
     
+    return () => unsub();
 }, [])
+
   const pasa = dataUsuario.apellido1;
   console.log(pasa)
-
+  console.log(users)
   return (
    <div>
        <Topbar></Topbar>
