@@ -11,6 +11,7 @@ import {db, auth } from '../Home/firebase';
 import { collection, query, where, onSnapshot, QuerySnapshot } from 'firebase/firestore';
 import User from '../../Components/chat/User';
 import { StackedLineChartTwoTone } from '@mui/icons-material';
+import MessageForm from '../../Components/chat/MessageForm';
 
 export default function Home() {
   const cookies = new Cookies();
@@ -64,15 +65,21 @@ export default function Home() {
         <Rightbar></Rightbar>
         <div className='user-container'>
           {users.map(user => <User key={user.uid} user={user} selectUser={selectUser}/>)}
-        </div>
+        <br></br>
 
         <div className='messages_container'>
-          {chat ? (<div className='message_user'>
+          
+          {chat ? (
+            <>
+            <div className='message_user'>
               <h3>{chat.form3}</h3>
-            </div> ):( <h3 className='no_conv'>Elija un usuario</h3>
-
+              </div>
+              <MessageForm/>
+              </>
+             ):( <h3 className='no_conv'>Elija un usuario</h3>
+            
           )}
-    
+         </div>
         </div>
       </div>
        

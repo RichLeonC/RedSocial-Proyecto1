@@ -21,6 +21,8 @@
     justify-content: left;
     height: 80vw;
     width: 20vw;
+    top: 400px;
+    left: -250px;
     
   }
   
@@ -35,8 +37,5 @@
     color: var(grey);
     text-align: center;
   }
-  
-  
-  
-  
+
   
