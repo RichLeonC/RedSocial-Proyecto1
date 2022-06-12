@@ -79,11 +79,11 @@ function Topbar(props) {
 
              <div>
                 {usuarios.map((usuario) => (
-                    <div className="card" style={{width: "18rem", position:'relative', bottom: '-10rem', left: '-41rem'}}>
+                    <div className="card" style={{width: "18rem", position:'relative', bottom: '-6rem', left: '-50rem'}}>
                         <div className="card-body">
-                        <h5 className="card-title">{usuario.nombre} {usuario.apellido1}</h5>
+                        <h5 className="card-title">{usuario.correoElectronico}</h5>
                         <p className="card-text">{usuario.nombre} {usuario.apellido1} {usuario.apellido2}</p>
-                        <a href="#" className="btn btn-primary">Go somewhere</a>
+                        <a href="#" className="btn btn-primary">Ir a perfil</a>
                         </div>
                     </div>
                 ))}
