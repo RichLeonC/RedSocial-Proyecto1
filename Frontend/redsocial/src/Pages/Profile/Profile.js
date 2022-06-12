@@ -10,11 +10,12 @@ import TextField from '@mui/material/TextField';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 
-export default function Profile(props) {
+export default function Profile() {
 
     const [modalImagen, setModalImagen] = useState(false); //Estado para el modal imagen
     const [modalInfo, setModalInfo] = useState(false); //Estado para el modal informacion
-    const [modalVerificado, setModalVerificador] = useState(false);
+    const [modalVerificado, setModalVerificador] = useState(false); //Estado para el modal verificador
+
     const cookie = new Cookies();
     const BaseURL = "http://localhost:3000/usuarios";
     const correoUno = cookie.get("correoElectronico");
@@ -23,14 +24,18 @@ export default function Profile(props) {
         nombre: "Adrian",
         apellido1: "Herrera",
         apellido2: "Segura",
-        fechaNacimiento: '',
-        clave: "spider",
-        intereses: '',
-        descripcionGeneral: '',
-        hobbies: ''
+        fechaNacimiento: '2019-11-01',
+        clave: "admin123",
+        intereses: 'Tecnologia',
+        descripcionGeneral: 'Estudiante',
+        hobbies: 'Le gusta spiderman'
     });
 
+    useEffect(() => { //Hace efecto la peticion
+        peticionGet();
+        ConexionUsuarios();
 
+    }, [])
 
     const [dataU, setDataU] = useState([]);
 
@@ -60,14 +65,20 @@ export default function Profile(props) {
         setModalInfo(!modalInfo);
     }
 
-    const abrirCerrarModalVerificador = () => { //Cambia el estado del modal de informacion
-        // if (modalVerificado == false){
+    const abrirCerrarModalVerificador = () => { //Cambia el estado del modal de verificacion
+        // if (modalVerificado == true){
         //     ConexionUsuarios()
         // }
         setModalVerificador(!modalVerificado);
     }
 
 
+    useEffect(() => { //Hace efecto la peticion
+
+
+        peticionGet(); 
+
+    })
 
 
 
@@ -89,15 +100,6 @@ export default function Profile(props) {
                         usuario.intereses = respuesta.intereses;
                         usuario.descGeneral = respuesta.descripcionGeneral;
                         usuario.hobbies = respuesta.hobbies;
-
-                        // respuesta.nombre = "Adrian";
-                        // respuesta.apellido1 = "Herrera";
-                        // respuesta.apellido2 = "Segura";
-                        // respuesta.fechaNacimiento = "2011-11-09";
-                        // respuesta.clave = "spider";
-                        // respuesta.intereses = "nada";
-                        // respuesta.descripcionGeneral = "soy yo";
-                        // usuario.hobbies = "jugar";
                     }
                 });
 
@@ -106,12 +108,6 @@ export default function Profile(props) {
             })
             .catch(error => { console.log(error); })
     }
-
-    useEffect(() => { //Hace efecto la peticion
-        peticionGet();
-       // ConexionUsuarios();
-
-    }, [])
 
     function infoPersonal() {
         //var fechaNacimientoString = dataU.fechaNacimiento.toString();
@@ -214,12 +210,13 @@ export default function Profile(props) {
                 <ModalBody>
                     Cambio de informacion
                 </ModalBody>
-                <ModalFooter>
 
+                <ModalFooter>
                     <Button className="btn btn-secondary" size="sm" onClick={() => abrirCerrarModalVerificador()}>
                         Listo
                     </Button>
                 </ModalFooter>
+
             </Modal>
 
             <Topbar />
@@ -258,7 +255,6 @@ export default function Profile(props) {
 
                         {infoPersonal()}
 
-
                     </div>
 
                 </div>
@@ -266,14 +262,6 @@ export default function Profile(props) {
 
         </div>
 
-
-
     )
 
-
 }
-
-
-
-//
-//{infoPersonal("adriherrera09", "Adrián", "Herrera", "Segura", "9 de noviembre, 2001", "El cine", "Un chavalo sencillo", "Minecraft")}
