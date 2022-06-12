@@ -16,6 +16,11 @@ export default function Profile() {
     const [modalImagen, setModalImagen] = useState(false); //Estado para el modal imagen
     const [modalInfo, setModalInfo] = useState(false); //Estado para el modal informacion
 
+    var fechaNacimientoVar = '2001-11-09'
+    var interesesVar = 'Tecnología' 
+    var descripcionGeneralVar = 'Estudiante'
+    var hobbiesVar = "Leer libros"
+
     const mostrarAlerta = () => {
         swal("Información Actualizada");
         ConexionUsuarios();
@@ -29,16 +34,16 @@ export default function Profile() {
         nombre: "Adrian",
         apellido1: "Herrera",
         apellido2: "Segura",
-        fechaNacimiento: '2001-11-09',
+        fechaNacimiento: fechaNacimientoVar,
         clave: "admin123",
-        intereses: 'Tecnologia',
-        descripcionGeneral: 'Estudiante',
-        hobbies: 'Le gusta spiderman'
+        intereses: interesesVar,
+        descripcionGeneral: descripcionGeneralVar,
+        hobbies: hobbiesVar
     });
 
     const [dataU, setDataU] = useState([]);
 
-    function handleChange(value, name) {
+    function handleChange(name, value) {
         setForm({
             ...form,
             [name]: value
@@ -92,6 +97,10 @@ export default function Profile() {
                 console.log(dataAuxiliar);
             })
             .catch(error => { console.log(error); })
+    }
+
+    function datosCambiados(dato1){
+        fechaNacimientoVar = dato1;
     }
 
     function infoPersonal() {
@@ -165,7 +174,8 @@ export default function Profile() {
                     <form>
                         <label>
                             Fecha de Nacimiento:
-                            <input type="text" name="fechaNacimiento" handleChange={handleChange} />
+                            <input type="text" name="fechaNacimiento" id="id1" handleChange={datosCambiados((e) => e.target.value)} />
+                            
                         </label>
                         <label>
                             Intereses:
