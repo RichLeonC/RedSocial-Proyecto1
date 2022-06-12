@@ -18,6 +18,7 @@ export default function Profile() {
 
     const mostrarAlerta = () => {
         swal("Información Actualizada");
+        ConexionUsuarios();
     }
 
     const cookie = new Cookies();
@@ -28,7 +29,7 @@ export default function Profile() {
         nombre: "Adrian",
         apellido1: "Herrera",
         apellido2: "Segura",
-        fechaNacimiento: '2019-11-01',
+        fechaNacimiento: '2001-11-09',
         clave: "admin123",
         intereses: 'Tecnologia',
         descripcionGeneral: 'Estudiante',
@@ -62,22 +63,9 @@ export default function Profile() {
         setModalInfo(!modalInfo);
     }
 
-    // const abrirCerrarModalVerificador = () => { //Cambia el estado del modal de verificacion
-    //     if (modalVerificado == true){
-    //         ConexionUsuarios()
-    //     }
-    //     setModalVerificador(!modalVerificado);
-    // }
-
-
     useEffect(() => { //Hace efecto la peticion
-
-
         peticionGet(); 
-
     })
-
-
 
     const ConexionUsuarios = async () => {
         console.log(form)
