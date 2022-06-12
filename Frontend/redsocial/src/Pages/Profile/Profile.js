@@ -9,12 +9,17 @@ import { ModalHeader, Modal, Button, ModalBody, ModalFooter } from 'reactstrap';
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
+import swal from 'sweetalert';
 
 export default function Profile() {
 
     const [modalImagen, setModalImagen] = useState(false); //Estado para el modal imagen
     const [modalInfo, setModalInfo] = useState(false); //Estado para el modal informacion
-    const [modalVerificado, setModalVerificador] = useState(false); //Estado para el modal verificador
+
+    const mostrarAlerta = () => {
+        swal("Información Actualizada");
+        ConexionUsuarios();
+    }
 
     const cookie = new Cookies();
     const BaseURL = "http://localhost:3000/usuarios";
@@ -24,27 +29,20 @@ export default function Profile() {
         nombre: "Adrian",
         apellido1: "Herrera",
         apellido2: "Segura",
-        fechaNacimiento: '2019-11-01',
+        fechaNacimiento: '2001-11-09',
         clave: "admin123",
         intereses: 'Tecnologia',
         descripcionGeneral: 'Estudiante',
         hobbies: 'Le gusta spiderman'
     });
 
-    useEffect(() => { //Hace efecto la peticion
-        peticionGet();
-        ConexionUsuarios();
-
-    }, [])
-
     const [dataU, setDataU] = useState([]);
 
-    function handleChange(name, value) {
+    function handleChange(value, name) {
         setForm({
             ...form,
             [name]: value
         });
-        // console.log(form);
     }
 
     const peticionGet = async () => { //Realiza peticiones Get al backend de los grupos
@@ -65,22 +63,9 @@ export default function Profile() {
         setModalInfo(!modalInfo);
     }
 
-    const abrirCerrarModalVerificador = () => { //Cambia el estado del modal de verificacion
-        // if (modalVerificado == true){
-        //     ConexionUsuarios()
-        // }
-        setModalVerificador(!modalVerificado);
-    }
-
-
     useEffect(() => { //Hace efecto la peticion
-
-
         peticionGet(); 
-
     })
-
-
 
     const ConexionUsuarios = async () => {
         console.log(form)
@@ -194,7 +179,7 @@ export default function Profile() {
                             Hobbies:
                             <input type="text" name="hobbies" handleChange={handleChange} />
                         </label>
-                        <button className="buton-container" onClick={() => abrirCerrarModalVerificador()}>
+                        <button className="buton-container" onClick={() => mostrarAlerta()}>
                             Ingresar
                         </button>
 
@@ -205,19 +190,7 @@ export default function Profile() {
                 </ModalFooter>
             </Modal>
 
-            <Modal isOpen={modalVerificado}>
-
-                <ModalBody>
-                    Cambio de informacion
-                </ModalBody>
-
-                <ModalFooter>
-                    <Button className="btn btn-secondary" size="sm" onClick={() => abrirCerrarModalVerificador()}>
-                        Listo
-                    </Button>
-                </ModalFooter>
-
-            </Modal>
+            
 
             <Topbar />
             <div className="profile">
