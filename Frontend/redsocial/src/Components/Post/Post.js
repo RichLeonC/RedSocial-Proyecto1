@@ -4,18 +4,22 @@ import { MoreVert } from "@mui/icons-material";
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 import { ModalHeader, Modal, Button, ModalBody, ModalFooter } from 'reactstrap';
+import CommentIcon from '@mui/icons-material/Comment';
 // import { Users } from "../../dummyData";
 
 
 export default function Post(props) {
   const baseUrl = `http://localhost:3000/posts/r29leonc@gmail.com`
   const baseUrlImg = `http://localhost:3000/images/${props.post.img}`
-  const [dataPost, setDataPost] = useState([])
- 
-
-
+  const [dataPost, setDataPost] = useState([]);
+  const [modalComentarios,setModalComentarios] = useState(false);
 
   const [imgSeleccionada, setImgSeleccionada] = useState([]);
+
+  const abrirCerrarModalComentarios=()=>{
+    setModalComentarios(!modalComentarios);
+  }
+
   const peticionGet = async () => { //Realiza peticiones Get al backend Matriculas
     await axios.get(baseUrl)
       .then(response => {
@@ -46,28 +50,15 @@ export default function Post(props) {
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
-            {/* <img
-              className="postProfileImg"
-              // src={Users.filter((u) => u.id === post?.userId)[0].profilePicture}
-              alt=""
-            /> */}
             <img className="postProfileImg" src="/assets/user.png" alt="" />
-
-
-            {/* <span className="postUsername"> */}
-            {/* {Users.filter((u) => u.id === post?.userId)[0].username} */}
-            {/* </span> */}
             <span className="postUsername">{props.post.correoElectronico}</span>
-            {/* <span className="postDate">{post.date}</span> */}
           </div>
           <div className="postTopRight">
             <MoreVert />
           </div>
         </div>
         <div className="postCenter">
-          {/* <span className="postText">{post?.desc}</span> */}
           <span className="postText">{props.post.description}</span>
-          {/* <img className="postImg" src={post.photo} alt="" /> */}
           {((props.post.img).toUpperCase().includes('.PNG') || (props.post.img).toUpperCase().includes('.JPG') || (props.post.img).toUpperCase().includes('.JPGE')) &&
 
             <img className="postImg" src={`http://localhost:3000/images/${props.post.img}`} />
@@ -84,15 +75,23 @@ export default function Post(props) {
         </div>
         <div className="postBottom">
           <div className="postBottomLeft">
-            {/* <img className="likeIcon" src="assets/like.png" onClick={likeHandler} alt="" />
-            <img className="likeIcon" src="assets/heart.png" onClick={likeHandler} alt="" /> 
-            <span className="postLikeCounter">{like} people like it</span> */}
           </div>
-          <div className="postBottomLeft">
-            {/* <span className="postCommentText">{post.comment} comments</span> */}
+          <div className="postBottomLeft" style={{ cursor: "pointer", fontWeight: "bold" }} onClick={()=>abrirCerrarModalComentarios()}>
+            <CommentIcon />
             <span className="postCommentText">Comentarios</span>
           </div>
         </div>
+
+        <Modal isOpen={modalComentarios}>
+          <ModalHeader>
+            Comentarios
+          </ModalHeader>
+          <ModalBody>
+          </ModalBody>
+          <ModalFooter>
+            <Button className="btn btn-danger" size="sm" onClick={() => abrirCerrarModalComentarios()}>Cerrar</Button>
+          </ModalFooter>
+        </Modal>
       </div>
 
     </div>
