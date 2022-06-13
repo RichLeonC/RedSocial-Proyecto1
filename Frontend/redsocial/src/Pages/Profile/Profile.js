@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Component } from 'react';
+import React, { useState, useEffect, Component, useRef } from 'react';
 import './profile.css'
 import Topbar from '../../Components/topbar/Topbar';
 import Feed from '../../Components/feed/Feed';
@@ -6,44 +6,39 @@ import Sidebar from '../../Components/sidebar/Sidebar'
 import Rightbar from '../../Components/rightbar/Rightbar';
 import { Public } from '@mui/icons-material';
 import { ModalHeader, Modal, Button, ModalBody, ModalFooter } from 'reactstrap';
-import TextField from '@mui/material/TextField';
+
 import axios from 'axios';
 import Cookies from 'universal-cookie';
-import swal from 'sweetalert';
+import moment from 'moment';
 
 export default function Profile() {
 
     const [modalImagen, setModalImagen] = useState(false); //Estado para el modal imagen
     const [modalInfo, setModalInfo] = useState(false); //Estado para el modal informacion
-
-    var fechaNacimientoVar = '2001-11-09'
-    var interesesVar = 'Tecnología' 
-    var descripcionGeneralVar = 'Estudiante'
-    var hobbiesVar = "Leer libros"
-
-    const mostrarAlerta = () => {
-        swal("Información Actualizada");
-        ConexionUsuarios();
-    }
+    const [modalExito, setModalExito] = useState(false);
 
     const cookie = new Cookies();
     const BaseURL = "http://localhost:3000/usuarios";
-    const correoUno = cookie.get("correoElectronico");
+    const fechaNacimiento = useRef();
+    const intereses = useRef();
+    const descripcionGeneral = useRef();
+    const hobbies = useRef();
 
     const [form, setForm] = useState({
-        nombre: "Adrian",
-        apellido1: "Herrera",
-        apellido2: "Segura",
-        fechaNacimiento: fechaNacimientoVar,
-        clave: "admin123",
-        intereses: interesesVar,
-        descripcionGeneral: descripcionGeneralVar,
-        hobbies: hobbiesVar
+        nombre: cookie.get("nombre"),
+        apellido1: cookie.get("apellido1"),
+        apellido2: cookie.get("apellido2"),
+        fechaNacimiento: '',
+        clave: cookie.get('clave'),
+        intereses: '',
+        descripcionGeneral: '',
+        hobbies: ''
     });
 
     const [dataU, setDataU] = useState([]);
 
-    function handleChange(name, value) {
+    function handleChange(e) {
+        const{name,value} = e.target;
         setForm({
             ...form,
             [name]: value
@@ -68,40 +63,37 @@ export default function Profile() {
         setModalInfo(!modalInfo);
     }
 
-    useEffect(() => { //Hace efecto la peticion
-        peticionGet(); 
-    })
+
+
 
     const ConexionUsuarios = async () => {
-        console.log(form)
+
+        dataU.fechaNacimiento = moment(dataU.fechaNacimiento).utc().format('YYYY-MM-DD');
+        console.log("FORM: " + JSON.stringify(form));
         await axios.put(BaseURL + `/${cookie.get('correoElectronico')}`, form)
             .then(response => {
-                var respuesta = response.data;
-                var dataAuxiliar = form;
-                console.log(response.data)
-                console.log(form)
-                dataAuxiliar.map(usuario => {
-                    if (usuario.correo == cookie.get('correoElectronico')) {
-                        usuario.nombre = respuesta.nombre;
-                        usuario.primApellido = respuesta.apellido1;
-                        usuario.segApellido = respuesta.apellido2;
-                        usuario.fechaNacimiento = respuesta.fechaNacimiento;
-                        usuario.clave = respuesta.clave;
-                        usuario.intereses = respuesta.intereses;
-                        usuario.descGeneral = respuesta.descripcionGeneral;
-                        usuario.hobbies = respuesta.hobbies;
-                    }
-                });
+                console.log('Usuario modificado')
 
-                console.log(respuesta);
-                console.log(dataAuxiliar);
             })
             .catch(error => { console.log(error); })
     }
 
-    function datosCambiados(dato1){
-        fechaNacimientoVar = dato1;
+    const abrirCerrarModalExito = () => {
+        if (modalInfo) {
+            abrirCerrarModalInfo();
+        }
+        ConexionUsuarios();
+        peticionGet();
+        setModalExito(!modalExito);
+
+
+
     }
+
+
+    useEffect(() => { //Hace efecto la peticion
+        peticionGet();
+    }, [])
 
     function infoPersonal() {
         //var fechaNacimientoString = dataU.fechaNacimiento.toString();
@@ -122,7 +114,7 @@ export default function Profile() {
                     <tbody>
                         <tr>
 
-                            <td>{dataU.fechaNacimiento}</td>
+                            <td>{moment(dataU.fechaNacimiento).utc().format('YYYY-MM-DD')}</td>
                             <td>{dataU.intereses}</td>
                             <td>{dataU.descripcionGeneral}</td>
                             <td>{dataU.hobbies}</td>
@@ -147,7 +139,7 @@ export default function Profile() {
                     Cambio de imagen
                 </ModalBody>
                 <ModalFooter>
-                    <h6>Escriba el nombre de la imagen:</h6>
+
                     <form>
                         <label>
                             <input type="text" name="imagen" />
@@ -164,43 +156,37 @@ export default function Profile() {
                 </ModalFooter>
             </Modal>
 
-            <Modal isOpen={modalInfo}>
+            <Modal isOpen={modalExito}>
 
                 <ModalBody>
-                    Cambio de informacion
+                    Cambio exitoso
                 </ModalBody>
                 <ModalFooter>
-                    <h6>Digite su nueva informacion:</h6>
-                    <form>
-                        <label>
-                            Fecha de Nacimiento:
-                            <input type="text" name="fechaNacimiento" id="id1" handleChange={datosCambiados((e) => e.target.value)} />
-                            
-                        </label>
-                        <label>
-                            Intereses:
-                            <input type="text" name="intereses" handleChange={handleChange} />
-                        </label>
-                        <label>
-                            Descripcion General:
-                            <input type="text" name="descripcionGeneral" handleChange={handleChange} />
-                        </label>
-                        <label>
-                            Hobbies:
-                            <input type="text" name="hobbies" handleChange={handleChange} />
-                        </label>
-                        <button className="buton-container" onClick={() => mostrarAlerta()}>
-                            Ingresar
-                        </button>
+                    <button className='btn btn-primary' onClick={() => abrirCerrarModalExito()}>Cerrar</button>
+                </ModalFooter>
+            </Modal>
 
-                    </form>
+            <Modal isOpen={modalInfo}>
+                <ModalHeader>Editar informacion</ModalHeader>
+                <ModalBody>
+
+                    <input className='form-control' placeholder='Fecha de nacimiento'type="text" name="fechaNacimiento" onChange={handleChange}/>
+                    <input className='form-control' placeholder='Intereses' type="text" name="intereses"  onChange={handleChange} />
+                    <input className='form-control'  placeholder='Descripción General'type="text" name="descripcionGeneral"  onChange={handleChange} />
+                    <input className='form-control' placeholder='Hobbies' type="text" name="hobbies"  onChange={handleChange} />
+                </ModalBody>
+                <ModalFooter>
+                    <button className="buton-container" onClick={() => abrirCerrarModalExito()}>
+                        Ingresar
+                    </button>
+
                     <Button className="btn btn-secondary" size="sm" onClick={() => abrirCerrarModalInfo()}>
                         No
                     </Button>
                 </ModalFooter>
             </Modal>
 
-            
+
 
             <Topbar />
             <div className="profile">
