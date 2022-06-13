@@ -8,7 +8,7 @@ import Rightbar from '../../Components/rightbar/Rightbar';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 import {db, auth } from '../Home/firebase';
-import { collection, query, where, onSnapshot, QuerySnapshot } from 'firebase/firestore';
+import { collection, query, where, onSnapshot, QuerySnapshot, doc , addDoc, Timestamp} from 'firebase/firestore';
 import User from '../../Components/chat/User';
 import { StackedLineChartTwoTone } from '@mui/icons-material';
 import MessageForm from '../../Components/chat/MessageForm';
@@ -18,7 +18,10 @@ export default function Home() {
   const baseUrl = "http://localhost:3000/usuarios/"+cookies.get("correoElectronico");
   const [dataUsuario,setUsuario] = useState([]);
   const [users, setUsers] = useState([]);
-  const [chat, setChat] = useState('');
+  const [chat, setChat] = useState("");
+  const [text, setText] = useState("");
+  const user1 =auth.currentUser.uid;
+
 
   const peticionGet = async()=>{ //Realiza peticiones Get al backend 
       await axios.get(baseUrl)
@@ -33,7 +36,7 @@ export default function Home() {
     peticionGet();
     const usersRef = collection(db, 'users')
     // create query objett
-    const q = query(usersRef, where('uid', 'not-in', [auth.currentUser.uid]))
+    const q = query(usersRef, where('uid', 'not-in', [user1]))
     //execute query 
     const unsub = onSnapshot(q, QuerySnapshot =>{
       let users = []
@@ -45,16 +48,33 @@ export default function Home() {
 
     
     return () => unsub();
-}, [])
+}, []);
 
   const pasa = dataUsuario.apellido1;
-  console.log(pasa)
+  console.log(pasa);
 
   const selectUser = (user) =>{
     setChat(user);
-    console.log(user)
+    console.log(user);
 
-  }
+  };
+  const handleSubmit = async (e) =>{
+    e.preventDefault();
+
+    const user2 = chat.uid;
+    const id = user1 > user2 ? `${user1 + user2}` : `${user2 + user1}`;
+    await addDoc(collection(db, "messages", id, "chat"), {
+      text,
+      from: user1,
+      to: user2,
+      createdAt: Timestamp.fromDate(new Date()),
+    });
+    
+    setText(" ");
+   
+  };
+
+
 
   return (
    <div>
@@ -74,7 +94,12 @@ export default function Home() {
             <div className='message_user'>
               <h3>{chat.form3}</h3>
               </div>
-              <MessageForm/>
+              <MessageForm
+              handleSubmit={handleSubmit}
+              text={text}
+              setText={setText}
+             
+            />
               </>
              ):( <h3 className='no_conv'>Elija un usuario</h3>
             
